@@ -1,14 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@200..700&display=swap');
 @import "tailwindcss";
+@plugin "daisyui";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+@theme {
+  /* Tailwind screen sizes config */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 480px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 976px;
 }
 
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: "Oswald", "Bebas Neue";
+.nav-link {
+  @apply hover:bg-[#EAEAEA] hover:text-[#2E2B2C] p-1.5 transition-colors duration-300 ease-in-out rounded-sm;
 }
