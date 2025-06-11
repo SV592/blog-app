@@ -10,12 +10,15 @@
   --breakpoint-lg: 976px;
 }
 
-.dark {
-  @apply bg-[#2E2B2C] text-[#EAEAEA]
+
+html[data-theme="myLightTheme"] {
+  background-color: #EAEAEA; /* text color */
+  color: #2E2B2C; /* background color */
 }
 
-.light {
-  @apply bg-[#EAEAEA] text-[#2E2B2C]
+html[data-theme="myDarkTheme"] {
+  background-color: #2E2B2C; /* text color */
+  color: #EAEAEA; /* text color */
 }
 
 .nav-link {

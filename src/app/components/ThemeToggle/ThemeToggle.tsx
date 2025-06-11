@@ -1,12 +1,24 @@
 "use client";
 import React from 'react'
+import { useTheme } from 'next-themes';
 
-// Navbar with daisyui & tailwind
+
 export const ThemeToggle = () => {
+  const { theme, setTheme } = useTheme(); // current theme and setter from the hook
+
+  // handle toggle change
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const isChecked = e.target.checked;
+    setTheme(isChecked ? 'myDarkTheme' : 'myLightTheme');
+  };
+
+  // Ensure the checkbox is checked if the current theme is 'myDarkTheme'
+  const isDarkTheme = theme === 'myDarkTheme';
+
   return (
     <label className="swap swap-rotate fixed bottom-5 right-10 p-1 rounded-sm">
         {/*checkbox controls the state */}
-        <input type="checkbox" className="theme-controller" value="synthwave" />
+        <input type="checkbox" className="theme-controller" checked={isDarkTheme} onChange={handleToggle}/>
 
         {/* sun icon */}
         <svg
