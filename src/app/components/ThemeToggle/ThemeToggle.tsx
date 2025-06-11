@@ -4,7 +4,7 @@ import React from 'react'
 // Navbar with daisyui & tailwind
 export const ThemeToggle = () => {
   return (
-    <label className="swap swap-rotate fixed bottom-5 right-10 bg-[#EAEAEA] p-1 rounded-sm">
+    <label className="swap swap-rotate fixed bottom-5 right-10 p-1 rounded-sm">
         {/*checkbox controls the state */}
         <input type="checkbox" className="theme-controller" value="synthwave" />
 

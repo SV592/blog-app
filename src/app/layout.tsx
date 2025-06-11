@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Oswald } from "next/font/google";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle";
-import Header from "./components/NavBar/Navbar";
+import Navbar from "./components/NavBar/Navbar";
+import Header from "./components/Header/Header"
 import "./globals.css";
 
 
@@ -21,8 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={oswald.className}>
-      <body suppressHydrationWarning className="bg-[#EAEAEA] text-[#2E2B2C] transition-colors duration-300 ease-in-out">
+    <html lang="en" className={`${oswald.className} light`} >
+      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out">
+        <Navbar />
         <Header />
         {children}
         <ThemeToggle />
