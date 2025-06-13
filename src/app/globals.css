@@ -21,6 +21,18 @@ html[data-theme="myDarkTheme"] {
   color: #EAEAEA; /* text color */
 }
 
-.nav-link {
+.nav-links {
   @apply hover:bg-[#2E2B2C] hover:text-[#EAEAEA] p-1.5 transition-colors duration-300 ease-in-out rounded-sm;
 }
+
+.social-links {
+  @apply px-1.5 py-0.5 gap-2 flex text-[#2E2B2C] items-center rounded-sm ease-in-out cursor-pointer bg-amber-600 mx-2 border-1 transform hover:scale-x-110 transition-transform duration-200;
+}
+
+
+html[data-theme="myDarkTheme"] {
+  .nav-links {
+    @apply hover:bg-[#EAEAEA] hover:text-[#2E2B2C] ;
+  }
+}
+

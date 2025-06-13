@@ -16,7 +16,7 @@ export const ThemeToggle = () => {
   const isDarkTheme = theme === 'myDarkTheme';
 
   return (
-    <label className="swap swap-rotate fixed bottom-5 right-10 p-1 rounded-sm">
+    <label className="swap swap-rotate fixed bottom-5 right-10 rounded-sm">
         {/*checkbox controls the state */}
         <input type="checkbox" className="theme-controller" checked={isDarkTheme} onChange={handleToggle}/>
 

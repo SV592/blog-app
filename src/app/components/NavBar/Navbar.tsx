@@ -5,16 +5,16 @@ import React from "react";
 // Navbar with tailwind
 const Header = () => {
   return (
-    <div className="flex pt-4 ml-10 items-center place-content-between">
-      <h1 className="text-3xl font-bold">The Coding Blog.</h1>
-      <div className="flex gap-4 mr-10 cursor-pointer">
-        <a className="nav-link">Latest</a>
-        <a className="nav-link">Trending</a>
-        <a className="nav-link">JavaScript</a>
-        <a className="nav-link">Python</a>
-        <a className="nav-link">C++</a>
+    <nav className="flex pt-4 items-center place-content-between">
+      <h1 className="text-3xl font-bold">A Uncanny Coding Blog.</h1>
+      <div className="flex gap-4 cursor-pointer">
+        <a className="nav-links">Latest</a>
+        <a className="nav-links">Trending</a>
+        <a className="nav-links">JavaScript</a>
+        <a className="nav-links">Python</a>
+        <a className="nav-links">C++</a>
       </div>
-    </div>
+    </nav>
   )
 }
 
