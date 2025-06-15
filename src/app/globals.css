@@ -5,9 +5,9 @@
 @theme {
   /* Tailwind screen sizes config */
   --breakpoint-*: initial;
-  --breakpoint-sm: 480px;
-  --breakpoint-md: 768px;
-  --breakpoint-lg: 976px;
+  --breakpoint-sm: 448px;
+  --breakpoint-md: 865px;
+  --breakpoint-lg: 2176px;
 }
 
 
@@ -26,7 +26,7 @@ html[data-theme="myDarkTheme"] {
 }
 
 .social-links {
-  @apply px-1.5 py-0.5 gap-2 flex text-[#2E2B2C] items-center rounded-sm ease-in-out cursor-pointer bg-amber-600 mx-2 border-1 transform hover:scale-x-110 transition-transform duration-200;
+  @apply px-1.5 py-0.5 gap-2 flex text-[#2E2B2C] items-center rounded-sm ease-in-out cursor-pointer bg-amber-600 mx-2 border-1 transform hover:-translate-y-1 transition-transform duration-300;
 }
 
 

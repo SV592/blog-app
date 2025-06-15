@@ -1,21 +1,33 @@
 import React from 'react'
 
+// Header component displays the main title, subtitle, overview, and social links
 const Header: React.FC = () => {
   return (
+    // Main container with flex layout for spacing and alignment
     <div className='flex mt-10 place-content-between items-center'>
+      {/* Left section: Title and subtitle */}
       <div className='flex items-center'>
+        {/* Main blog title */}
           <h1 className='text-[9rem] font-bold'>Unorthodox Blocks</h1>
+          {/* Main blog title */}
           <div className='flex flex-col w-25 mx-2'>
               <h1 className='font-bold text-2xl'>Beyond Standard Code Snippets.</h1>
           </div>
       </div>
+
+       {/* Right section: Overview and social links */}
       <div className='flex flex-col items-left border-l-2 gap-2'>
+        {/* Overview heading */}
         <h1 className='text-center font-bold text-2xl'>Overview</h1>
+        {/* Overview description */}
          <p className='w-80 text-center'>
           This space is where I share the clever detours and unique solutions I discover, aiming to show there&apos;s more than one way to get the job done 
          </p>
-        <div className='flex justify-center'>      
+         {/* Social links */}
+        <div className='flex justify-center'> 
+          {/* Github link */}     
           <a href="https://github.com/SV592" target="_blank" className='social-links'>
+           {/* Github SVG icon */}
             <svg width="25" height="25" viewBox="0 0 24 24" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2.24902C6.51613 2.24902 2 6.70064 2 12.249C2 16.6361 4.87097 20.3781 8.87097 21.7329C9.3871 21.8297 9.54839 21.5071 9.54839 21.2813C9.54839 
               21.0555 9.54839 20.4103 9.51613 19.5393C6.74194 20.1845 6.16129 
@@ -36,7 +48,9 @@ const Header: React.FC = () => {
             </svg>
             <span>Github</span>
           </a>
+          {/* Linkedin link */}
           <a href="https://www.linkedin.com/in/shaquille-pearson-47bb5a208/" target="_blank" className='social-links'>
+          {/* Linkedin SVG icon */}
             <svg width="25" height="25" viewBox="0 0 24 24" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
               <path d="M19.7065 3H4.34844C3.62264 3 3.04199 3.58065 3.04199 4.30645V19.6935C3.04199
               20.3903 3.62264 21 4.34844 21H19.6485C20.3743 21 20.9549
@@ -51,7 +65,9 @@ const Header: React.FC = () => {
             </svg>
             <span>Linkedin</span>
           </a>
+          {/* Portfolio link */}
           <a href="https://shaquillepearson.com/" target="_blank" className='social-links'>
+          {/* Portfolio SVG icon */}
             <svg width="25" height="25" viewBox="0 0 24 25" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.75 12.2149C8.75 11.1749 8.79402 10.1203 8.88791 
               9.10333C9.90434 9.00957 10.9583 8.96561 11.9976 8.96561C13.0381

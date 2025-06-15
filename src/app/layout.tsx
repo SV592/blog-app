@@ -7,36 +7,44 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import "./globals.css";
 
-
+// Metadata for the website (used by Next.js for SEO)
 export const metadata: Metadata = {
   title: "A Coding Blog Website",
   description: "A fun way to shares my experiences as a software engineer.",
 };
 
+// Import Oswald font from Google Fonts with Cyrillic subset
 const oswald = Oswald({
   subsets: ['cyrillic'],
 });
 
-
+// Root layout component for the app
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
+    // Set language and font, suppress hydration warning for SSR/CSR mismatch
     <html lang="en" className={`${oswald.className}`} suppressHydrationWarning>
-      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-20">
-        {/* persists theme preferences across sessions */}
+      {/* Main body with transition and margin styling */}
+      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10">
+        {/* ThemeProvider persists theme preferences across sessions */}
         <ThemeProvider
           attribute={"data-theme"}
           defaultTheme="myLightTheme"
           enableSystem
           themes={["myLightTheme", "myDarkTheme"]}
         >
+          {/* Navigation bar at the top */}
           <Navbar />
+          {/* Main header section */}
           <Header />
+          {/* Main content area (children) */}
           {children}
+          {/* Theme toggle button */}
           <ThemeToggle />
+          {/* Footer at the bottom */}
           <Footer />
         </ThemeProvider>
       </body>
