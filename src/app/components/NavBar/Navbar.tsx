@@ -22,7 +22,7 @@ const Header: React.FC = () => {
       <div className="hidden md:flex gap-2 cursor-pointer">
 
         {/* Link to latest posts */}
-        <a className="nav-links">Latest</a>
+        <a className="nav-links">All</a>
 
         {/* Link to trending posts */}
         <a className="nav-links">Trending</a>
