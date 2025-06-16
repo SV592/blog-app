@@ -3,17 +3,20 @@ import React from 'react'
 import { useTheme } from 'next-themes';
 
 
-export const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme(); // Current theme and setter from the hook
+export const ThemeToggle: React.FC = () => {
+  const { theme, setTheme } = useTheme() as {
+    theme: string | undefined;
+    setTheme: (theme: string) => void;
+  };  // Current theme and setter from the hook
 
   // Handle toggle change
-  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const isChecked = e.target.checked;
+  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const isChecked: boolean = e.target.checked;
     setTheme(isChecked ? 'myDarkTheme' : 'myLightTheme');
   };
 
   // Ensure the checkbox is checked if the current theme is 'myDarkTheme'
-  const isDarkTheme = theme === 'myDarkTheme';
+  const isDarkTheme: boolean = theme === 'myDarkTheme';
 
   return (
     <label className="swap swap-rotate fixed bottom-5 right-5 rounded-sm">
@@ -22,7 +25,7 @@ export const ThemeToggle = () => {
 
         {/* Sun icon */}
         <svg
-          className="swap-off h-7 w-7 fill-current md:w-10 md:h-10"
+          className="swap-off h-7 w-7 fill-current ml-0 md:ml-4 lg:ml-0 lg:w-10 lg:h-10"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24">
           <path
@@ -31,7 +34,7 @@ export const ThemeToggle = () => {
 
         {/* Moon icon */}
         <svg
-          className="swap-on h-7 w-7 fill-current md:w-10 md:h-10"
+          className="swap-on h-7 w-7 fill-current ml-0 md:ml-4 lg:ml-0 lg:w-10 lg:h-10"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24">
           <path

@@ -27,13 +27,29 @@ html[data-theme="myDarkTheme"] {
 }
 
 .social-links {
-  @apply px-1.5 py-0.5 gap-2 flex text-[#2E2B2C] items-center rounded-sm ease-in-out cursor-pointer bg-amber-600 mx-2 border-1 transform hover:-translate-y-1 transition-transform duration-300;
+  @apply px-1.5 py-0.5 gap-2 flex text-[#2E2B2C] bg-amber-600 items-center rounded-sm cursor-pointer mx-2 border-1 transform hover:-translate-y-1 transition-transform duration-300;
+}
+
+.featured {
+  @apply w-[85%] my-4 border-2 border-[#2E2B2C] p-4 rounded-sm md:w-[95%]
+}
+
+.tags {
+  @apply bg-[#2E2B2C] text-[#EAEAEA] px-2.5 py-1 rounded-full
 }
 
 
 html[data-theme="myDarkTheme"] {
   .nav-links {
-    @apply hover:bg-[#EAEAEA] hover:text-[#2E2B2C] ;
+    @apply hover:bg-[#EAEAEA] hover:text-[#2E2B2C]
+  }
+
+  .featured {
+    @apply border-[#EAEAEA] text-[#EAEAEA]
+  }
+
+  .tags {
+    @apply bg-[#EAEAEA] text-[#2E2B2C]
   }
 }
 

@@ -5,10 +5,10 @@ import { useState } from "react";
 // Navbar component using Tailwind CSS for styling
 const Header: React.FC = () => {
   // State to manage the visibility of the mobile menu
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   // Function to toggle the menu's open/close state
-  const toggleMenu = () => {
+  const toggleMenu = (): void => {
     setMenuOpen(!menuOpen);
   };
 
@@ -19,7 +19,7 @@ const Header: React.FC = () => {
       <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">An Uncanny Coding Blog</h1>
 
       {/* Navigation links */}
-      <div className="hidden md:flex gap-2 cursor-pointer">
+      <div className="hidden md:flex gap-3.5 cursor-pointer">
 
         {/* Link to latest posts */}
         <a className="nav-links">All</a>
