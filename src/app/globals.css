@@ -49,15 +49,11 @@ html[data-theme="myDarkTheme"] {
   }
 
   .featured {
-    @apply border-[#EAEAEA] text-[#EAEAEA]
+    @apply text-[#2E2B2C] bg-[#EAEAEA]
   }
 
   .blogs {
-    @apply border-[#EAEAEA] text-[#EAEAEA]
-  }
-
-  .tags {
-    @apply bg-[#EAEAEA] text-[#2E2B2C]
+    @apply text-[#2E2B2C] bg-[#EAEAEA]
   }
 }
 

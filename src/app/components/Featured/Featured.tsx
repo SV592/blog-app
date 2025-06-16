@@ -1,4 +1,6 @@
+"use client"
 import React from 'react'
+import Image from 'next/image'
 
 // Featured component displays a highlighted blog post section
 export const Featured: React.FC = () => {
@@ -10,7 +12,7 @@ export const Featured: React.FC = () => {
             {/* Display current date */}
             <p className=''>{new Date().toLocaleDateString()}</p>
             {/* Featured post title */}
-            <h1 className='text-xl font-bold'>JavaScript Behind the Scenes</h1>
+            <h1 className='text-xl font-bold'>JavaScript Behind The Scenes</h1>
             {/* Featured post description */}
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu finibus turpis. Nam maximus turpis sed ante dignissim,
                 a iaculis lacus fringilla. Nulla dictum placerat est, vitae tincidunt ante dictum eget. Aenean fringilla augue tempor,
@@ -24,8 +26,11 @@ export const Featured: React.FC = () => {
             </div>
         </div>
 
-        {/* Featured image */}
-        <img src="/javascript.jpg" width="85%" className='max-h-100 rounded-sm' alt="" />
+        {/* Featured image */}        
+        <div className='w-[95%] md:w-[85%] h-[15vh] sm:h-[20vh] md:h-[30vh] lg:h-[40vh] relative'>
+          <Image src="/javascript.jpg" alt="feature image" quality={95} fill objectFit='cover' className='rounded-sm' priority={true} />
+        </div>
+
     </div>
   )
 }
