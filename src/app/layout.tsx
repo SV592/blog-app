@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import { Oswald } from "next/font/google";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle";
-import Navbar from "./components/NavBar/Navbar";
-import Header from "./components/Header/Header";
-import Footer from "./components/Footer/Footer";
+import { Navbar } from "./components/Navbar/Navbar";
+import { Header } from "./components/Header/Header";
+import { Footer } from "./components/Footer/Footer";
 import "./globals.css";
 
 // Metadata for the website (used by Next.js for SEO)

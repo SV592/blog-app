@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 
 // Navbar component using Tailwind CSS for styling
-const Header: React.FC = () => {
+export const Navbar: React.FC = () => {
   // State to manage the visibility of the mobile menu
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
@@ -68,5 +68,3 @@ const Header: React.FC = () => {
     </nav>
   )
 }
-
-export default Header

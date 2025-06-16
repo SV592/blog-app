@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Header component displays the main title, subtitle, overview, and social links
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   return (
     // Main container with flex layout for spacing and alignment
     <div className='flex flex-col place-content-between items-center gap-2 mt-4 md:mt-0'>
@@ -133,5 +133,3 @@ const Header: React.FC = () => {
       </div>
   )
 }
-
-export default Header

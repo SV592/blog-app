@@ -31,7 +31,11 @@ html[data-theme="myDarkTheme"] {
 }
 
 .featured {
-  @apply w-[85%] my-4 border-2 border-[#2E2B2C] p-4 rounded-sm md:w-[95%]
+  @apply my-4 border-2 border-[#2E2B2C] p-4 rounded-sm
+}
+
+.blogs {
+  @apply border-2 border-[#2E2B2C] p-4 rounded-sm flex flex-col items-center text-center
 }
 
 .tags {
@@ -45,6 +49,10 @@ html[data-theme="myDarkTheme"] {
   }
 
   .featured {
+    @apply border-[#EAEAEA] text-[#EAEAEA]
+  }
+
+  .blogs {
     @apply border-[#EAEAEA] text-[#EAEAEA]
   }
 
