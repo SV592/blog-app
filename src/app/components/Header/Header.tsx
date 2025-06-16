@@ -4,9 +4,9 @@ import React from 'react'
 const Header: React.FC = () => {
   return (
     // Main container with flex layout for spacing and alignment
-    <div className='flex flex-col mt-10 place-content-between items-center gap-2 xl:gap-0 xl:flex-row'>
+    <div className='flex flex-col place-content-between items-center gap-2 mt-4 md:mt-0'>
       {/* Left section: Title and subtitle */}
-      <div className='flex flex-col items-center font-bold text-[2.5rem] sm:text-[4rem] md:text-[7rem] lg:text-[9rem] xl:flex-row'>
+      <div className='flex flex-col items-center font-bold text-[2.5rem] sm:text-[4rem] md:text-[7rem] lg:text-[9rem]'>
         {/* Main title */}
         <div className='flex gap-2 md:gap-4'>
           <h1>Unorthodox</h1>
@@ -14,18 +14,16 @@ const Header: React.FC = () => {
         </div>
           
           {/* Sub title */}
-          <h1 className='text-xl mx-2 xl:w-25 sm:text-2xl'>Beyond Standard Code Snippets.</h1>
+          <h1 className='text-xl mx-2'>Beyond Standard Code Snippets</h1>
       </div>
 
-      <h1>space for an animation</h1>
-
        {/* Right section: Overview and social links */}
-      <div className='flex flex-col text-center border-t-2 border-l-0 gap-2 py-2 xl:py-0 xl:border-l-2 xl:border-t-0'>
+      <div className='flex flex-col text-center border-t-2 gap-2 py-2'>
         {/* Overview heading */}
-        <h1 className='font-bold text-[1rem] hidden xl:block md:text-xl lg:text-2xl'>Overview</h1>
+        {/* <h1 className='font-bold text-[1rem] hidden xl:block md:text-xl lg:text-2xl'>Welcome</h1> */}
         {/* Overview description */}
-         <p className='text-center text-[1rem] sm:w-full xl:w-80'>
-          This space is where I share the clever detours and unique solutions I discover, aiming to show there&apos;s more than one way to get the job done 
+         <p className='text-center text-[1rem]'>
+          I&apos;m Shaquille and this digital workshop is where I share the unique solutions, and creative approaches aimed at illuminating coding concepts.
          </p>
          {/* Social links */}
         <div className='flex justify-center'> 
@@ -50,7 +48,7 @@ const Header: React.FC = () => {
               21.4426 14.7097 21.7329 15.1935 21.6361C19.129 20.3135 22 16.6039 22
               12.1845C21.9677 6.70064 17.4839 2.24902 12 2.24902Z"/>
             </svg>
-            <span>Github</span>
+            <span className='hidden md:block'>Github</span>
           </a>
           {/* Linkedin link */}
           <a href="https://www.linkedin.com/in/shaquille-pearson-47bb5a208/" target="_blank" className='social-links'>
@@ -67,7 +65,7 @@ const Header: React.FC = () => {
               14.0613V18.3H10.0968V9.73548H12.6807V10.9258H12.7097C13.0872 10.229 13.9291 9.53226 15.2356
               9.53226C17.9356 9.53226 18.4291 11.2742 18.4291 13.6548V18.3H18.371Z"/>
             </svg>
-            <span>Linkedin</span>
+            <span className='hidden md:block'>Linkedin</span>
           </a>
           {/* Portfolio link */}
           <a href="https://shaquillepearson.com/" target="_blank" className='social-links'>
@@ -128,7 +126,7 @@ const Header: React.FC = () => {
               14.3069 19.0675 14.6072C18.3353 14.8323 17.5105
               15.0093 16.6324 15.1425C16.7122 14.1691 16.7486 13.1794 16.7486 12.2149Z"/>
             </svg>
-          <span>Portfolio</span>
+          <span className='hidden md:block'>Portfolio</span>
         </a>
         </div>
       </div>

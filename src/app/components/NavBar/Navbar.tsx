@@ -16,10 +16,10 @@ const Header: React.FC = () => {
     // Navigation bar container with flex layout
     <nav className="flex pt-4 items-center place-content-between relative gap-4">
       {/* Blog title */}
-      <h1 className="text-2xl md:text-3xl font-bold">An Uncanny Coding Blog.</h1>
+      <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">An Uncanny Coding Blog</h1>
 
       {/* Navigation links */}
-      <div className="hidden md:flex gap-4 cursor-pointer">
+      <div className="hidden md:flex gap-2 cursor-pointer">
 
         {/* Link to latest posts */}
         <a className="nav-links">Latest</a>
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
       {/* Hamburger Icon (Shown on small screens, hidden on medium and larger) */}
       <button
         onClick={toggleMenu}
-        className="md:hidden z-10 overflow-hidden" // Added z-index
+        className="md:hidden z-10 overflow-hidden cursor-pointer" // Added z-index
         aria-label="Toggle navigation menu"
       >
         {/* Toggle between hamburger icon and 'X' icon based on menuOpen state */}
