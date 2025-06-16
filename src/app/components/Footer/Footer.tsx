@@ -4,7 +4,7 @@ import React from 'react'
 const Footer: React.FC = () => {
   return (
     // Fixed 5 units from the bottom of the viewport
-    <footer className="fixed bottom-5">
+    <footer className="fixed bottom-5 min-w-[330px]">
         <div className="flex">
             {/* Aside contains the copyright */}
             <aside className="flex gap-2 items-center">

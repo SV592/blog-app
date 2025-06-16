@@ -9,8 +9,8 @@ import "./globals.css";
 
 // Metadata for the website (used by Next.js for SEO)
 export const metadata: Metadata = {
-  title: "A Coding Blog Website",
-  description: "A fun way to shares my experiences as a software engineer.",
+  title: "Unorthodox Blocks",
+  description: "A coding blog by Shaquille Pearson",
 };
 
 // Import Oswald font from Google Fonts with Cyrillic subset
@@ -28,7 +28,7 @@ export default function RootLayout({
     // Set language and font, suppress hydration warning for SSR/CSR mismatch
     <html lang="en" className={`${oswald.className}`} suppressHydrationWarning>
       {/* Main body with transition and margin styling */}
-      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10">
+      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10 min-w-[290px]">
         {/* ThemeProvider persists theme preferences across sessions */}
         <ThemeProvider
           attribute={"data-theme"}

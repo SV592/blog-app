@@ -14,9 +14,9 @@ const Header: React.FC = () => {
 
   return (
     // Navigation bar container with flex layout
-    <nav className="flex pt-4 items-center place-content-between relative gap-4 min-w-[300px]">
+    <nav className="flex pt-4 items-center place-content-between relative gap-4">
       {/* Blog title */}
-      <h1 className="text-2xl md:text-3xl font-bold">A Uncanny Coding Blog.</h1>
+      <h1 className="text-2xl md:text-3xl font-bold">An Uncanny Coding Blog.</h1>
 
       {/* Navigation links */}
       <div className="hidden md:flex gap-4 cursor-pointer">
@@ -55,7 +55,7 @@ const Header: React.FC = () => {
 
       {/* Mobile Navigation Links (Shown only when menuOpen is true) */}
       {menuOpen && (
-        <div className="md:hidden absolute top-full right-0 w-full rounded-sm bg-[#2E2B2C] dark:bg-[#EAEAEA] shadow-lg p-4 flex flex-col z-50 cursor-pointer">
+        <div className="md:hidden absolute top-full right-0 w-full bg-[#2E2B2C] dark:bg-[#EAEAEA] shadow-lg p-4 flex flex-col z-50 cursor-pointer">
           {/* Apply nav-links style, but also make them block for full width and add padding */}
           <a className="nav-links block py-2 px-4 text-center" onClick={toggleMenu}>Latest</a>
           <a className="nav-links block py-2 px-4 text-center" onClick={toggleMenu}>Trending</a>

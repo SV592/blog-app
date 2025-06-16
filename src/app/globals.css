@@ -5,9 +5,10 @@
 @theme {
   /* Tailwind screen sizes config */
   --breakpoint-*: initial;
-  --breakpoint-sm: 448px;
-  --breakpoint-md: 865px;
-  --breakpoint-lg: 2176px;
+  --breakpoint-sm: 600px;
+  --breakpoint-md: 932px;
+  --breakpoint-lg: 1200px;
+  --breakpoint-xl: 1595px;
 }
 
 

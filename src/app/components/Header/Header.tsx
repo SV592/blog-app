@@ -4,23 +4,27 @@ import React from 'react'
 const Header: React.FC = () => {
   return (
     // Main container with flex layout for spacing and alignment
-    <div className='flex mt-10 place-content-between items-center'>
+    <div className='flex flex-col mt-10 place-content-between items-center gap-2 xl:gap-0 xl:flex-row'>
       {/* Left section: Title and subtitle */}
-      <div className='flex items-center'>
-        {/* Main blog title */}
-          <h1 className='text-[9rem] font-bold'>Unorthodox Blocks</h1>
-          {/* Main blog title */}
-          <div className='flex flex-col w-25 mx-2'>
-              <h1 className='font-bold text-2xl'>Beyond Standard Code Snippets.</h1>
-          </div>
+      <div className='flex flex-col items-center font-bold text-[2.5rem] sm:text-[4rem] md:text-[7rem] lg:text-[9rem] xl:flex-row'>
+        {/* Main title */}
+        <div className='flex gap-2 md:gap-4'>
+          <h1>Unorthodox</h1>
+          <h1>Blocks</h1>
+        </div>
+          
+          {/* Sub title */}
+          <h1 className='text-xl mx-2 xl:w-25 sm:text-2xl'>Beyond Standard Code Snippets.</h1>
       </div>
 
+      <h1>space for an animation</h1>
+
        {/* Right section: Overview and social links */}
-      <div className='flex flex-col items-left border-l-2 gap-2'>
+      <div className='flex flex-col text-center border-t-2 border-l-0 gap-2 py-2 xl:py-0 xl:border-l-2 xl:border-t-0'>
         {/* Overview heading */}
-        <h1 className='text-center font-bold text-2xl'>Overview</h1>
+        <h1 className='font-bold text-[1rem] hidden xl:block md:text-xl lg:text-2xl'>Overview</h1>
         {/* Overview description */}
-         <p className='w-80 text-center'>
+         <p className='text-center text-[1rem] sm:w-full xl:w-80'>
           This space is where I share the clever detours and unique solutions I discover, aiming to show there&apos;s more than one way to get the job done 
          </p>
          {/* Social links */}
