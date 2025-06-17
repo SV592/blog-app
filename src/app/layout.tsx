@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { JSX } from "react";
 import { ThemeProvider } from "next-themes";
 import { Oswald } from "next/font/google";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle";
@@ -18,12 +19,12 @@ const oswald = Oswald({
   subsets: ['cyrillic'],
 });
 
-// Root layout component for the app
+// Root layout component for the app, typed for TypeScript
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): JSX.Element {
   return (
     // Set language and font, suppress hydration warning for SSR/CSR mismatch
     <html lang="en" className={`${oswald.className}`} suppressHydrationWarning>
