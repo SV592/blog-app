@@ -43,7 +43,7 @@ export async function fetchPlaylistDataFromServer(playlistId: string = '4sm1LiCc
         // The first argument to URL constructor is relative to the path in the proxy API route.
         const proxyUrl = new URL(
             // Pass the actual Spotify API endpoint as the 'endpoint' query parameter
-            `/api/spotify-proxy?endpoint=playlists/${playlistId}/tracks?limit=5`,
+            `/api/spotify-proxy-CPmcif6ulq?endpoint=playlists/${playlistId}/tracks?limit=5`,
             // Use process.env.NEXT_PUBLIC_VERCEL_URL for deployment, fallback to localhost for dev
             process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'
         );

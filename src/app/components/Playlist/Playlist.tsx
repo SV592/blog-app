@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Tunes } from '../Tunes/Tunes';
 
@@ -18,16 +18,19 @@ interface SpotifyPlayerProps {
   initialPlaylistData: Track[] | null;
 }
 
-const PLAYLIST_ID = '4sm1LiCcKQDxZcgUqe1A7P'; // Spotify playlist ID
-
 // Playlist component displays a list of tracks from a Spotify playlist
 export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) => {
-  // State for playlist tracks
-  const [playlistTracks, setPlaylistTracks] = useState<Track[]>(initialPlaylistData || []);
-  // State for loading indicator
-  const [isLoading, setIsLoading] = useState<boolean>(!initialPlaylistData);
-  // State for error messages
-  const [error, setError] = useState<string | null>(null);
+  // State for playlist tracks - directly initialized from the prop
+  // If initialPlaylistData is null, initialize with an empty array
+  const [playlistTracks] = useState<Track[]>(initialPlaylistData || []);
+
+  // State for loading indicator - it's always false now as data is expected to be pre-loaded
+  const [isLoading] = useState<boolean>(false);
+
+  // State for error messages - set if initialPlaylistData is null
+  const [error] = useState<string | null>(
+    initialPlaylistData === null ? "Failed to load playlist data." : null
+  );
 
   // Helper to format track duration from ms to mm:ss
   const formatDuration = (ms: number): string => {
@@ -35,78 +38,6 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) 
     const seconds = ((ms % 60000) / 1000).toFixed(0);
     return `${minutes}:${(parseInt(seconds) < 10 ? '0' : '')}${seconds}`;
   };
-
-  // Fetch playlist tracks from the server via proxy API
-  const fetchPlaylistTracks = useCallback(async () => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      // Use the /api/spotify-proxy endpoint to get playlist data
-      const response = await fetch(`/api/spotify-proxy?endpoint=playlists/${PLAYLIST_ID}/tracks?limit=5`);
-      
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'No error body from proxy' }));
-        console.error('Failed to fetch playlist from proxy:', response.status, errorData);
-        throw new Error(`Failed to fetch playlist: ${response.status}`);
-      }
-      
-      const data = await response.json();
-
-      // Interfaces for Spotify API response structure
-      interface SpotifyArtist {
-        name: string;
-      }
-
-      interface SpotifyAlbumImage {
-        url: string;
-      }
-
-      interface SpotifyTrack {
-        id: string;
-        name: string;
-        artists: SpotifyArtist[];
-        duration_ms: number;
-        album: {
-          images: SpotifyAlbumImage[];
-        };
-        uri: string;
-      }
-
-      interface SpotifyPlaylistItem {
-        track: SpotifyTrack;
-      }
-
-      // Map API response to Track[]
-      const tracks = (data.items as SpotifyPlaylistItem[]).map((item) => ({
-        id: item.track.id,
-        name: item.track.name,
-        artists: item.track.artists.map((artist) => artist.name).join(', '),
-        duration_ms: item.track.duration_ms,
-        albumImageUrl: item.track.album.images[0]?.url || '',
-        uri: item.track.uri,
-      }));
-
-      setPlaylistTracks(tracks);
-    } catch (err) {
-      console.error('Error fetching playlist tracks for refresh:', err);
-      setError('Failed to refresh playlist.');
-    } finally {
-      setIsLoading(false);
-    }
-  }, []); // No dependencies, fetches from proxy directly
-
-  useEffect(() => {
-    // If no initial data, fetch client-side
-    if (!initialPlaylistData) {
-      fetchPlaylistTracks();
-    }
-    
-    // Set up interval to refresh playlist every hour
-    const intervalId = setInterval(fetchPlaylistTracks, 10 * 1000);
-    
-    // Cleanup interval on unmount
-    return () => clearInterval(intervalId);
-  }, [fetchPlaylistTracks, initialPlaylistData]);
 
   return (
     <div className="flex flex-col mt-4 gap-4 items-center xl:flex-row">
@@ -130,11 +61,11 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) 
           <h1 className='text-xl font-bold hidden md:block'>For A Creative Trance </h1>
 
           {/* Conditional rendering for loading, error, or track list */}
-          {isLoading ? (
+          {isLoading ? ( // This will now always be false
             <p className="text-cente">Loading playlist data...</p>
-          ) : error ? (
+          ) : error ? ( // This will be set if initialPlaylistData was null
             <p className="text-cente">{error}</p>
-          ) : playlistTracks.length === 0 ? (
+          ) : playlistTracks.length === 0 ? ( // Check if the initial data was empty
             <p className="text-center">No tracks found.</p>
           ) : (
             playlistTracks.map((track, index) => (
