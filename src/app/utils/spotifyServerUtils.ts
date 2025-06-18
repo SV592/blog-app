@@ -81,9 +81,8 @@ type SpotifyTrackSummary = {
  * Returns an array of simplified track summaries, or null if the request fails.
  * @param playlistId - The Spotify playlist ID to fetch (default is a sample playlist)
  */
-export async function fetchPlaylistDataFromServer(
-    playlistId: string = '4sm1LiCcKQDxZcgUqe1A7P'
-): Promise<SpotifyTrackSummary[] | null> {
+export async function fetchPlaylistDataFromServer( playlistId: string = '4sm1LiCcKQDxZcgUqe1A7P'): Promise<SpotifyTrackSummary[] | null> {
+    
     // Get an app access token
     const accessToken = await getAppAccessToken();
     if (!accessToken) {
@@ -96,7 +95,7 @@ export async function fetchPlaylistDataFromServer(
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             },
-            next: { revalidate: 3600 }, // Cache for 1 hour if using Next.js caching
+            next: { revalidate: 3600 }, // Cache for 1 hour
         });
 
         if (!response.ok) {
