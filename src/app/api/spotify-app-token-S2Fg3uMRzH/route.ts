@@ -11,7 +11,7 @@ type SpotifyTokenResponse = {
  * API route handler for GET requests to retrieve a Spotify app access token.
  * Uses the Client Credentials flow to get an app-level token from Spotify.
  */
-export const GET = async (): Promise<NextResponse> => {
+export const POST = async (): Promise<NextResponse> => {
   // Read Spotify credentials from environment variables
   const CLIENT_ID: string | undefined = process.env.SPOTIFY_CLIENT_ID;
   const CLIENT_SECRET: string | undefined = process.env.SPOTIFY_CLIENT_SECRET;

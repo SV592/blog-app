@@ -5,7 +5,7 @@ let cachedAccessToken: string | null = null;
 let tokenExpiryTime: number = 0; // Timestamp
 
 // Get the app access token
-async function getAppAccessToken(): Promise<string | null> {
+const getAppAccessToken = async (): Promise<string | null> => {
     
     // Check for a valid, unexpired token in cache
     const TOKEN_REFRESH_BUFFER_MS = 5 * 60 * 1000; // Refresh 5 minutes before expiry
@@ -16,10 +16,9 @@ async function getAppAccessToken(): Promise<string | null> {
 
     // Token is expired or not present, fetch a new one from your dedicated API route
     try {
-        // Call your internal API route for getting the Spotify access token
+        // Call the spotify-app-token API route
         // Use process.env.NEXT_PUBLIC_VERCEL_URL for production deployment
-        const tokenRouteUrl = new URL('/api/spotify-app-token', process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000');
-        // console.log('Server (Proxy): Requesting new token from:', tokenRouteUrl.toString());
+        const tokenRouteUrl = new URL('/api/spotify-app-token-S2Fg3uMRzH/', process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000');
 
         const response = await fetch(tokenRouteUrl.toString());
 
@@ -49,9 +48,9 @@ async function getAppAccessToken(): Promise<string | null> {
 
 /**
  * API route handler for proxying requests to the Spotify Web API.
- * This function now acquires the token internally, so the client doesn't send it.
+ * Acquires the token internally, so the client doesn't send it.
  */
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export const GET = async (request: NextRequest): Promise<NextResponse> => {
     const url = new URL(request.url);
     const endpoint: string | null = url.searchParams.get('endpoint');
 
@@ -68,7 +67,6 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
     try {
         // Construct the full Spotify API URL
-        // Ensure this base URL is correct for Spotify's Web API
         const spotifyApiUrl: string = `https://api.spotify.com/v1/${endpoint}`;
 
         // Forward the request to the Spotify API with the internally obtained access token

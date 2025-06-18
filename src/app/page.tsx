@@ -22,12 +22,7 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
       {/* Playlist section */}
       <div className="w-[85%] md:w-[95%] mt-10">
         <h1 className="font-bold text-3xl underline">Playlist</h1>
-        {/* Conditionally render Playlist or error message based on data */}
-        {initalPlaylist ? (
           <Playlist initialPlaylistData={initalPlaylist}/>
-        ) : (
-          <p className="text-center">Failed to load playlist</p>
-        )}
       </div>
 
       {/* Other blog posts section */}

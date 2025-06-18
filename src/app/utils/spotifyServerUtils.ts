@@ -1,47 +1,3 @@
-const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET;
-
-/**
- * Retrieves an app-level access token from Spotify using Client Credentials flow.
- * Returns the access token as a string, or null if credentials are missing or request fails.
- */
-async function getAppAccessToken(): Promise<string | null> {
-    if (!CLIENT_ID || !CLIENT_SECRET) {
-        console.error('Spotify API credentials not set in environment variables.');
-        return null;
-    }
-
-    try {
-        // Request a token from Spotify's accounts service
-        const response = await fetch('https://accounts.spotify.com/api/token', {
-            method: 'POST',
-            headers: {
-                'Authorization': `Basic ${Buffer.from(CLIENT_ID + ':' + CLIENT_SECRET).toString('base64')}`,
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                grant_type: 'client_credentials'
-            }).toString()
-        });
-
-        if (!response.ok) {
-            // Log error details if token request fails
-            const errorData = await response.json();
-            console.error('Failed to get app token from Spotify:', response.status, errorData);
-            return null;
-        }
-
-        // Parse and return the access token from the response
-        const data = await response.json();
-        return data.access_token;
-
-    } catch (error) {
-        // Log server or network errors
-        console.error('Server error getting app token:', error);
-        return null;
-    }
-}
-
 // Type definitions for Spotify API responses
 type SpotifyArtist = {
     name: string;
@@ -66,7 +22,7 @@ type SpotifyPlaylistItem = {
     track: SpotifyTrack;
 };
 
-// Simplified track summary type for use in the app
+// Track summary type 
 type SpotifyTrackSummary = {
     id: string;
     name: string;
@@ -77,36 +33,45 @@ type SpotifyTrackSummary = {
 };
 
 /**
- * Fetches playlist data from Spotify for a given playlist ID.
+ * Fetches playlist data from Spotify for a given playlist ID by calling the /api/spotify-proxy route.
+ * This function is intended for server-side rendering (SSR) of initial data.
  * Returns an array of simplified track summaries, or null if the request fails.
  * @param playlistId - The Spotify playlist ID to fetch (default is a sample playlist)
  */
-export async function fetchPlaylistDataFromServer( playlistId: string = '4sm1LiCcKQDxZcgUqe1A7P'): Promise<SpotifyTrackSummary[] | null> {
-    
-    // Get an app access token
-    const accessToken = await getAppAccessToken();
-    if (!accessToken) {
-        return null;
-    }
-
+export async function fetchPlaylistDataFromServer(playlistId: string = '4sm1LiCcKQDxZcgUqe1A7P'): Promise<SpotifyTrackSummary[] | null> {
     try {
-        // Fetch tracks from the specified playlist (limit to 5 tracks)
-        const response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks?limit=5`, {
-            headers: {
-                'Authorization': `Bearer ${accessToken}`,
-            },
-            next: { revalidate: 3600 }, // Cache for 1 hour
+        // The first argument to URL constructor is relative to the path in the proxy API route.
+        const proxyUrl = new URL(
+            // Pass the actual Spotify API endpoint as the 'endpoint' query parameter
+            `/api/spotify-proxy?endpoint=playlists/${playlistId}/tracks?limit=5`,
+            // Use process.env.NEXT_PUBLIC_VERCEL_URL for deployment, fallback to localhost for dev
+            process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'
+        );
+
+        // Make the fetch request to the proxy API
+        const response = await fetch(proxyUrl.toString(), {
+            // No 'Authorization' header needed here, the proxy handles token internally.
+            // Cache for 1 hour.
+            next: { revalidate: 3600 },
         });
 
         if (!response.ok) {
-            // Log error details if playlist fetch fails
-            const errorData = await response.json().catch(() => ({ message: 'No error body from Spotify' }));
-            console.error('Failed to fetch playlist data from Spotify:', response.status, errorData);
+            // Log error details if the proxy call fails
+            const errorData = await response.json().catch(() => ({ message: 'No error body from proxy' }));
+            console.error('Server Utils: Failed to fetch playlist data via /api/spotify-proxy for SSR (Status:', response.status, ') Error:', errorData);
+            return null; // Return null on failure to get data
+        }
+
+        // Parse the response from your proxy (which should be the raw Spotify data)
+        const data = await response.json();
+
+        // Basic check to ensure the structure is as expected from Spotify's API
+        if (!data || !data.items) {
+            console.error("Server Utils: Proxy returned unexpected data structure for playlist items:", data);
             return null;
         }
 
-        // Parse the response and map to simplified track summaries
-        const data = await response.json();
+        // Map to simplified track summaries as before
         return data.items.map((item: SpotifyPlaylistItem) => ({
             id: item.track.id,
             name: item.track.name,
@@ -115,9 +80,10 @@ export async function fetchPlaylistDataFromServer( playlistId: string = '4sm1LiC
             albumImageUrl: item.track.album.images[0]?.url || '',
             uri: item.track.uri,
         }));
+
     } catch (error) {
-        // Log server or network errors
-        console.error('Error fetching playlist data:', error);
+        // Log server or network errors during the fetch to your proxy
+        console.error('Server Utils: Error fetching playlist data from proxy:', error);
         return null;
     }
 }
