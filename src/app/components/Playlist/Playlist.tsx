@@ -42,7 +42,7 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) 
     setError(null);
     try {
       // Use the /api/spotify-proxy endpoint to get playlist data
-      const response = await fetch(`/api/spotify-proxy?endpoint=playlists/${PLAYLIST_ID}/tracks?limit=4`);
+      const response = await fetch(`/api/spotify-proxy?endpoint=playlists/${PLAYLIST_ID}/tracks?limit=5`);
       
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({ message: 'No error body from proxy' }));
@@ -102,7 +102,7 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) 
     }
     
     // Set up interval to refresh playlist every hour
-    const intervalId = setInterval(fetchPlaylistTracks, 3600 * 1000);
+    const intervalId = setInterval(fetchPlaylistTracks, 10 * 1000);
     
     // Cleanup interval on unmount
     return () => clearInterval(intervalId);
