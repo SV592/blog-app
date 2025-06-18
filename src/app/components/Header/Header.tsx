@@ -9,12 +9,12 @@ export const Header: React.FC = () => {
       <div className='flex flex-col items-center font-bold text-[2.5rem] sm:text-[4rem] md:text-[7rem] lg:text-[9rem]'>
         {/* Main title */}
         <div className='flex gap-2 md:gap-4'>
-          <h1>Unorthodox</h1>
-          <h1>Blocks</h1>
+          <h1>Gazette</h1>
+          {/* <h1>Blocks</h1> */}
         </div>
           
           {/* Sub title */}
-          <h1 className='text-xl mx-2'>Beyond Standard Code Snippets</h1>
+          <h1 className='text-xl mx-2 text-center'>Deconstructing Code & Concepts</h1>
       </div>
 
        {/* Right section: Overview and social links */}
@@ -23,12 +23,12 @@ export const Header: React.FC = () => {
         {/* <h1 className='font-bold text-[1rem] hidden xl:block md:text-xl lg:text-2xl'>Welcome</h1> */}
         {/* Overview description */}
          <p className='text-center text-[1rem]'>
-          I&apos;m Shaquille and this digital workshop is where I share the unique solutions, and creative approaches aimed at illuminating coding concepts.
+          I&apos;m Shaquille, and this is my Blog – born from my passion for sharing unique solutions and creative methods to brighten up coding concepts.
          </p>
          {/* Social links */}
         <div className='flex justify-center'> 
           {/* Github link */}     
-          <a href="https://github.com/SV592" target="_blank" className='social-links'>
+          <a href="https://github.com/SV592" target="_blank" className='social-links mx-2'>
            {/* Github SVG icon */}
             <svg width="25" height="25" viewBox="0 0 24 24" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 2.24902C6.51613 2.24902 2 6.70064 2 12.249C2 16.6361 4.87097 20.3781 8.87097 21.7329C9.3871 21.8297 9.54839 21.5071 9.54839 21.2813C9.54839 
@@ -51,7 +51,7 @@ export const Header: React.FC = () => {
             <span className='hidden md:block'>Github</span>
           </a>
           {/* Linkedin link */}
-          <a href="https://www.linkedin.com/in/shaquille-pearson-47bb5a208/" target="_blank" className='social-links'>
+          <a href="https://www.linkedin.com/in/shaquille-pearson-47bb5a208/" target="_blank" className='social-links mx-2'>
           {/* Linkedin SVG icon */}
             <svg width="25" height="25" viewBox="0 0 24 24" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
               <path d="M19.7065 3H4.34844C3.62264 3 3.04199 3.58065 3.04199 4.30645V19.6935C3.04199
@@ -68,7 +68,7 @@ export const Header: React.FC = () => {
             <span className='hidden md:block'>Linkedin</span>
           </a>
           {/* Portfolio link */}
-          <a href="https://shaquillepearson.com/" target="_blank" className='social-links'>
+          <a href="https://shaquillepearson.com/" target="_blank" className='social-links mx-2'>
           {/* Portfolio SVG icon */}
             <svg width="25" height="25" viewBox="0 0 24 25" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
               <path d="M8.75 12.2149C8.75 11.1749 8.79402 10.1203 8.88791 

@@ -10,7 +10,7 @@ import "./globals.css";
 
 // Metadata for the website (used by Next.js for SEO)
 export const metadata: Metadata = {
-  title: "Unorthodox Blocks",
+  title: "The Coding Gazette",
   description: "A coding blog by Shaquille Pearson",
 };
 

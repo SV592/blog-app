@@ -27,7 +27,7 @@ export const Featured: React.FC = () => {
         </div>
 
         {/* Featured image */}        
-        <div className='w-[95%] md:w-[85%] h-[15vh] sm:h-[20vh] md:h-[30vh] lg:h-[40vh] relative'>
+        <div className='w-[95%] md:w-[85%] h-[20vh] md:h-[40vh] relative'>
           <Image src="/javascript.jpg" alt="feature image" quality={95} fill objectFit='cover' className='rounded-sm' priority={true} />
         </div>
 

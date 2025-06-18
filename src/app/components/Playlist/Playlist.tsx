@@ -1,0 +1,169 @@
+"use client";
+
+import React, { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
+import { Tunes } from '../Tunes/Tunes';
+
+// Track interface for playlist tracks
+interface Track {
+  id: string;
+  name: string;
+  artists: string;
+  duration_ms: number;
+  albumImageUrl: string;
+  uri: string;
+}
+
+// Props for the Playlist component
+interface SpotifyPlayerProps {
+  initialPlaylistData: Track[] | null;
+}
+
+const PLAYLIST_ID = '4sm1LiCcKQDxZcgUqe1A7P'; // Spotify playlist ID
+
+// Playlist component displays a list of tracks from a Spotify playlist
+export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) => {
+  // State for playlist tracks
+  const [playlistTracks, setPlaylistTracks] = useState<Track[]>(initialPlaylistData || []);
+  // State for loading indicator
+  const [isLoading, setIsLoading] = useState<boolean>(!initialPlaylistData);
+  // State for error messages
+  const [error, setError] = useState<string | null>(null);
+
+  // Helper to format track duration from ms to mm:ss
+  const formatDuration = (ms: number): string => {
+    const minutes = Math.floor(ms / 60000);
+    const seconds = ((ms % 60000) / 1000).toFixed(0);
+    return `${minutes}:${(parseInt(seconds) < 10 ? '0' : '')}${seconds}`;
+  };
+
+  // Fetch playlist tracks from the server via proxy API
+  const fetchPlaylistTracks = useCallback(async () => {
+    setIsLoading(true);
+    setError(null);
+    try {
+      // Use the /api/spotify-proxy endpoint to get playlist data
+      const response = await fetch(`/api/spotify-proxy?endpoint=playlists/${PLAYLIST_ID}/tracks?limit=4`);
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: 'No error body from proxy' }));
+        console.error('Failed to fetch playlist from proxy:', response.status, errorData);
+        throw new Error(`Failed to fetch playlist: ${response.status}`);
+      }
+      
+      const data = await response.json();
+
+      // Interfaces for Spotify API response structure
+      interface SpotifyArtist {
+        name: string;
+      }
+
+      interface SpotifyAlbumImage {
+        url: string;
+      }
+
+      interface SpotifyTrack {
+        id: string;
+        name: string;
+        artists: SpotifyArtist[];
+        duration_ms: number;
+        album: {
+          images: SpotifyAlbumImage[];
+        };
+        uri: string;
+      }
+
+      interface SpotifyPlaylistItem {
+        track: SpotifyTrack;
+      }
+
+      // Map API response to Track[]
+      const tracks = (data.items as SpotifyPlaylistItem[]).map((item) => ({
+        id: item.track.id,
+        name: item.track.name,
+        artists: item.track.artists.map((artist) => artist.name).join(', '),
+        duration_ms: item.track.duration_ms,
+        albumImageUrl: item.track.album.images[0]?.url || '',
+        uri: item.track.uri,
+      }));
+
+      setPlaylistTracks(tracks);
+    } catch (err) {
+      console.error('Error fetching playlist tracks for refresh:', err);
+      setError('Failed to refresh playlist.');
+    } finally {
+      setIsLoading(false);
+    }
+  }, []); // No dependencies, fetches from proxy directly
+
+  useEffect(() => {
+    // If no initial data, fetch client-side
+    if (!initialPlaylistData) {
+      fetchPlaylistTracks();
+    }
+    
+    // Set up interval to refresh playlist every hour
+    const intervalId = setInterval(fetchPlaylistTracks, 3600 * 1000);
+    
+    // Cleanup interval on unmount
+    return () => clearInterval(intervalId);
+  }, [fetchPlaylistTracks, initialPlaylistData]);
+
+  return (
+    <div className="flex flex-col mt-4 gap-4 items-center xl:flex-row">
+      {/* Playlist display section */}
+      <div className='flex flex-col w-full border-2 items-center rounded-sm p-4 gap-4 xl:w-[50%] lg:flex-row'>
+        {/* Album Art */}
+        <div className='w-[95%] h-[20vh] sm:h-[30vh] md:h-[40vh] lg:h-[40vh] md:w-full relative'>
+          <Image
+            src="/headphones.jpg"
+            alt="feature image"
+            fill
+            objectFit='cover'
+            className='rounded-sm'
+            priority={true}
+          />
+        </div>
+
+        {/* Track list and info */}
+        <div className='w-full flex flex-col gap-4'>
+          <p className='hidden md:block'>Spotify Playlist</p>
+          <h1 className='text-xl font-bold hidden md:block'>For A Creative Trance </h1>
+
+          {/* Conditional rendering for loading, error, or track list */}
+          {isLoading ? (
+            <p className="text-cente">Loading playlist data...</p>
+          ) : error ? (
+            <p className="text-cente">{error}</p>
+          ) : playlistTracks.length === 0 ? (
+            <p className="text-center">No tracks found.</p>
+          ) : (
+            playlistTracks.map((track, index) => (
+              <Tunes
+                key={track.id}
+                num={(index + 1).toString()}
+                title={track.name}
+                artist={track.artists}
+                time={formatDuration(track.duration_ms)}
+              />
+            ))
+          )}
+        </div>
+      </div>
+
+      {/* Playlist promotion section */}
+      <div className='flex flex-col gap-4 w-full xl:w-[50%] items-center'>
+        <h1 className='text-8xl font-bold hidden xl:block'>Check Out My Programming Playlist</h1>
+        <div className='w-full mt-0 xl:mt-4'>
+          <a href='#' className='social-links flex justify-center'>
+            {/* Spotify icon */}
+            <svg viewBox="0 0 24 24" fill="#2E2B2C" className='w-8 h-8 md:w-10 md:h-10 xl:w-15 xl:h-15' xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2C6.45161 2 2 6.45161 2 12C2 17.5484 6.45161 22 12 22C17.5484 22 22 17.5484 22 12C22 6.45161 17.5484 2 12 2ZM16.5806 16.4194C16.3871 16.6774 16.0323 16.7742 15.7097 16.6452C13.3548 15.1935 10.3871 14.871 6.93548 15.6452C6.58064 15.7419 6.25806 15.5161 6.19355 15.1935C6.09677 14.8387 6.32258 14.5161 6.64516 14.4194C10.4516 13.5484 13.6774 13.9355 15.5484 15.5484C16.6774 15.7742 16.7742 16.129 16.5806 16.4194ZM17.8065 13.7419C17.5806 14.0968 17.0645 14.1935 16.7742 13.9677C14.0968 12.3226 10 11.8387 6.80645 12.8387C6.3871 12.9677 5.93548 12.7419 5.83871 12.2903C5.70968 11.871 5.93548 11.4194 6.3871 11.3226C10.0323 10.1935 14.5161 10.7742 17.6129 12.6452C17.9032 12.871 18.0323 13.3226 17.8065 13.7419ZM17.9032 10.871C14.6774 8.96774 9.35484 8.77419 6.25806 9.74194C5.80645 9.87097 5.25806 9.6129 5.12903 9.09677C5.00000 8.64516 5.25806 8.09677 5.77419 7.96774C9.32258 6.93548 15.129 7.09677 18.871 9.32258C19.3226 9.58065 19.4516 10.1935 19.2258 10.5806C18.9677 11 18.3548 11.129 17.9032 10.871Z"/>
+            </svg>
+            <span className='font-bold text-3xl hidden lg:block'>Playlist</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  );
+};

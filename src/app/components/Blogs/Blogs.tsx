@@ -4,10 +4,10 @@ import Image from 'next/image';
 
 export const Blogs: React.FC = () => {
   return (
-    <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>
         <div className='blogs'>
              {/* Featured image */}
-              <div className='w-[95%] md:w-[85%] h-[15vh] sm:h-[20vh] md:h-[30vh] lg:h-[40vh]] relative'>
+              <div className='w-[95%] md:w-[85%] h-[20vh] md:h-[30vh] lg:h-[35vh] relative'>
                 <Image src="/javascript.jpg" alt="feature image" fill objectFit='cover' className='rounded-sm' priority={true} />
               </div>
             
@@ -33,7 +33,7 @@ export const Blogs: React.FC = () => {
 
         <div className='blogs'>
             {/* Featured image */}
-            <div className='w-[95%] md:w-[85%] h-[15vh] md:h-[20vh] lg:h-[30vh] relative'>
+            <div className='w-[95%] md:w-[85%] h-[20vh] md:h-[30vh] lg:h-[35vh] relative'>
                 <Image src="/javascript.jpg" alt="feature image" fill objectFit='cover' className='rounded-sm' priority={true} />
             </div>
             
@@ -59,7 +59,7 @@ export const Blogs: React.FC = () => {
 
         <div className='blogs'>
             {/* Featured image */}
-            <div className='w-[95%] md:w-[85%] h-[15vh] md:h-[20vh] lg:h-[30vh] relative'>
+            <div className='w-[95%] md:w-[85%] h-[20vh] md:h-[30vh] lg:h-[35vh] relative'>
                 <Image src="/javascript.jpg" alt="feature image" fill objectFit='cover' className='rounded-sm' priority={true} />
             </div>
             

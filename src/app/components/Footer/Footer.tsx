@@ -4,8 +4,8 @@ import React from 'react'
 export const Footer: React.FC = () => {
   return (
     // Fixed 5 units from the bottom of the viewport
-    <footer className="mx-14 my-5 mt-4 md:mx-5 lg:mx-11 text-center">
-        <div className="flex">
+    <footer className="my-5 text-center">
+        <div className="flex justify-center">
             {/* Aside contains the copyright */}
             <aside className="flex gap-2 items-center">
               {/* Display current year dynamically */}
