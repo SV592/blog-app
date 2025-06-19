@@ -6,6 +6,7 @@ import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle";
 import { Navbar } from "./components/Navbar/Navbar";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
+import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
 // Metadata for the website (used by Next.js for SEO)
@@ -46,6 +47,7 @@ export default function RootLayout({
           {/* Theme toggle button */}
           <ThemeToggle />
           {/* Footer at the bottom */}
+          <Toaster />
           <Footer />
         </ThemeProvider>
       </body>

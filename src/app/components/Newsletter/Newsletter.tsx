@@ -1,13 +1,54 @@
-import React from 'react'
+"use client";
+import React, { useState } from 'react'
+import toast from 'react-hot-toast';
+import { subscribeToNewsletter } from "../../utils/newsletterClientUtils"
 
 export const Newsletter: React.FC = () => {
+
+  const [email, setEmail] = useState<string>('');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    setIsSubmitting(true); // Set loading state
+
+    // Basic client-side email validation (still good to have for immediate feedback)
+    if (!email || !email.includes('@') || !email.includes('.')) {
+      toast.error('Please enter a valid email address.');
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Call the utility function to handle the API request
+    const result = await subscribeToNewsletter(email);
+
+    // Check the type of result to determine success or error
+    if ('id' in result) { // If 'id' property exists, it's a success response
+      toast.success(result.message)
+      setEmail(''); // Clear email input on successful subscription
+    } else { // Otherwise, it's an error response
+      toast(result.message);
+    }
+
+    setIsSubmitting(false); // Reset loading state
+  };
+
   return (
     <div className='flex justify-between items-center gap-4 mt-4'>
       <div className='flex flex-col gap-4 w-full xl:w-[50%] items-center'>
         <h1 className='text-2xl sm:text-4xl md:text-8xl font-bold'>Sign Up For Our Newsletter</h1>
-          <input type="email" className='border-2 w-full rounded-sm p-4' placeholder='Enter your email here' />
-        <div className='w-full mt-0 xl:mt-4'>
-          <a href='#' className='social-links flex justify-center'>
+        <form onSubmit={handleSubmit} className='w-full flex flex-col gap-4 items-center mt-0 xl:mt-4'>
+          <input 
+            type="email" 
+            className='border-2 w-full rounded-sm p-4' 
+            placeholder='Enter your email here'
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            disabled={isSubmitting}
+          />
+          <button className='social-links flex justify-center w-full' type='submit' disabled={isSubmitting}>
             {/* Arrow icon */}
             <svg fill="#2E2B2C" viewBox="0 0 24 24" className='w-8 h-8 md:w-10 md:h-10 xl:w-15 xl:h-15' xmlns="http://www.w3.org/2000/svg">
               <path d="M9.96973 9.02588C9.96973 8.61167 10.3055 8.27588 10.7197 8.27588H14.2798C14.694 8.27588 15.0298 8.61167
@@ -20,10 +61,9 @@ export const Newsletter: React.FC = () => {
               17.4395C8.62392 17.3097 8.46973 17.0543 8.46973 16.7759V9.02588C8.46973
               7.78324 9.47709 6.77588 10.7197 6.77588Z"/>
             </svg>
-
             <span className='font-bold text-3xl hidden lg:block'>Sign Up</span>
-          </a>
-        </div>
+          </button>
+        </form>
       </div>
 
       <div className='flex justify-center gap-12 border-2 p-18.5 w-full hidden xl:w-[50%] xl:flex'>

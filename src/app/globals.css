@@ -1,6 +1,24 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
+/* For the email input in the Newsletter component */
+input[type="email"]:-webkit-autofill,
+input[type="email"]:-webkit-autofill:hover,
+input[type="email"]:-webkit-autofill:focus,
+input[type="email"]:-webkit-autofill:active {
+    
+  /* To remove the autofill background color */
+    -webkit-box-shadow: 0 0 0px 1000px white inset !important;
+    box-shadow: 0 0 0px 1000px white inset !important;
+
+    /* To maintain text color */
+    -webkit-text-fill-color: #2E2B2C !important; 
+    color: #2E2B2C !important;
+
+    /* To remove any autofill border color */
+    border: 2px solid #2E2B2C !important;
+}
+
 
 @theme {
   /* Tailwind screen sizes config */
