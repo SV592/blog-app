@@ -70,7 +70,7 @@ export const Newsletter: React.FC = () => {
         <div className='flex flex-col gap-4'>
           <p>Every Monday</p>
           <h1 className='font-bold text-xl'>Weekly Dose of Deconstructed Code</h1>
-          <p>Keep your coding knowledge sharp with a fresh delivery of my latest post, featuring innovative solutions and clear concept deconstructions, arriving in your inbox each week.</p>
+          <p>Keep your coding knowledge sharp with a fresh delivery of my latest posts, featuring innovative solutions and clear concept deconstructions, arriving in your inbox each week.</p>
           <svg width="20" height="20" viewBox="0 0 24 25" className='tunes' fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.5 3.64062C18.799 3.64062 19.0844 3.69895 19.3454 3.80484L11.9299 11.2203L9.63761 8.92801C8.75893 8.04934
             7.33431 8.04935 6.45563 8.92803C5.57696 9.80671 5.57696 11.2313 6.45565 12.11L10.3389 15.9932C11.2176 16.8719
