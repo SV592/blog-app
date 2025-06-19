@@ -74,7 +74,6 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
             headers: {
                 'Authorization': `Bearer ${accessToken}`,
             },
-            next: { revalidate: 3600 } // Next.js cache for this proxy response
         });
 
         // Handle various Spotify API response statuses

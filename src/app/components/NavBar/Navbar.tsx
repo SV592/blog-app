@@ -16,7 +16,7 @@ export const Navbar: React.FC = () => {
     // Navigation bar container with flex layout
     <nav className="flex pt-4 mb-4 items-center place-content-between relative gap-4">
       {/* Blog title */}
-      <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">The Coding Gazette</h1>
+      <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">The Programmer&apos;s Gazette</h1>
 
       {/* Navigation links */}
       <div className="hidden md:flex gap-3.5 cursor-pointer">

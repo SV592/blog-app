@@ -52,7 +52,7 @@ export async function fetchPlaylistDataFromServer(playlistId: string = '4sm1LiCc
         const response = await fetch(proxyUrl.toString(), {
             // No 'Authorization' header needed here, the proxy handles token internally.
             // Cache for 1 hour.
-            next: { revalidate: 3600 },
+            next: { revalidate: 10 },
         });
 
         if (!response.ok) {

@@ -20,7 +20,6 @@ interface SpotifyPlayerProps {
 
 // Playlist component displays a list of tracks from a Spotify playlist
 export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) => {
-  // State for playlist tracks - directly initialized from the prop
   // If initialPlaylistData is null, initialize with an empty array
   const [playlistTracks] = useState<Track[]>(initialPlaylistData || []);
 
@@ -61,7 +60,7 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) 
           <h1 className='text-xl font-bold hidden md:block'>For A Creative Trance </h1>
 
           {/* Conditional rendering for loading, error, or track list */}
-          {isLoading ? ( // This will now always be false
+          {isLoading ? (
             <p className="text-cente">Loading playlist data...</p>
           ) : error ? ( // This will be set if initialPlaylistData was null
             <p className="text-cente">{error}</p>
@@ -75,6 +74,7 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) 
                 title={track.name}
                 artist={track.artists}
                 time={formatDuration(track.duration_ms)}
+                url={track.uri}
               />
             ))
           )}
