@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { JSX } from "react";
 import { ThemeProvider } from "next-themes";
 import { Oswald } from "next/font/google";
@@ -9,8 +9,21 @@ import { Footer } from "./components/Footer/Footer";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#EAEAEA',
+
+};
+
 // Metadata for the website (used by Next.js for SEO)
 export const metadata: Metadata = {
+
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"), // Set your base URL dynamically or statically
+
   // --- Basic SEO Metadata ---
   title: {
     default: "The Programmer's Gazette - A Coding Blog by Shaquille Pearson",
@@ -42,20 +55,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: '/', // For the homepage, use '/'
   },
-
-  // --- Viewport and Format Detection ---
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-
+  
   // --- Open Graph Metadata (for Facebook, LinkedIn, etc.) ---
   openGraph: {
     title: "The Programmer's Gazette - A Coding Blog by Shaquille Pearson",
@@ -101,9 +101,6 @@ export const metadata: Metadata = {
     },
   },
 
-  // --- Theme Color (for browser UI elements) ---
-  themeColor: '#EAEAEA', // Or your primary brand color
-
 }
 // Import Oswald font from Google Fonts with Cyrillic subset
 const oswald = Oswald({
@@ -120,7 +117,7 @@ export default function RootLayout({
     // Set language and font, suppress hydration warning for SSR/CSR mismatch
     <html lang="en" className={`${oswald.className}`} suppressHydrationWarning>
       {/* Main body with transition and margin styling */}
-      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10 min-w-[290px]">
+      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10 min-w-[280px]">
         {/* ThemeProvider persists theme preferences across sessions */}
         <ThemeProvider
           attribute={"data-theme"}

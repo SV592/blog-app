@@ -13,7 +13,7 @@ export const Newsletter: React.FC = () => {
 
     setIsSubmitting(true); // Set loading state
 
-    // Basic client-side email validation (still good to have for immediate feedback)
+    // Basic client-side email validation
     if (!email || !email.includes('@') || !email.includes('.')) {
       toast.error('Please enter a valid email address.');
       setIsSubmitting(false);
@@ -37,7 +37,7 @@ export const Newsletter: React.FC = () => {
   return (
     <div className='flex justify-between items-center gap-4 mt-4'>
       <div className='flex flex-col gap-4 w-full xl:w-[50%] items-center'>
-        <h1 className='text-2xl sm:text-4xl md:text-8xl font-bold'>Sign Up For Our Newsletter</h1>
+        <h1 className='text-2xl sm:text-4xl md:text-8xl font-bold'>Sign Up For The Newsletter</h1>
         <form onSubmit={handleSubmit} className='w-full flex flex-col gap-4 items-center mt-0 xl:mt-4'>
           <input 
             type="email" 
@@ -87,7 +87,7 @@ export const Newsletter: React.FC = () => {
         <div className='flex flex-col gap-4'>
           <p>Last Friday of the Month</p>
           <h1 className='font-bold text-xl'>The Month&apos;s Essential Code Recap</h1>
-          <p>For a curated overview, subscribe to our monthly digest. It&apos;s a thoughtfully compiled recap of the most significant insights, detailed explanations, and standout discussions from the past four weeks.</p>
+          <p>For a curated overview, subscribe to the monthly digest. It&apos;s a thoughtfully compiled recap of the most significant insights, detailed explanations, and standout discussions from the past four weeks.</p>
           <svg width="20" height="20" viewBox="0 0 24 25" className='tunes' fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
             <path d="M18.5 3.64062C18.799 3.64062 19.0844 3.69895 19.3454 3.80484L11.9299 11.2203L9.63761 8.92801C8.75893 8.04934
             7.33431 8.04935 6.45563 8.92803C5.57696 9.80671 5.57696 11.2313 6.45565 12.11L10.3389 15.9932C11.2176 16.8719

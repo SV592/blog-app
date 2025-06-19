@@ -1,5 +1,7 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "@tailwindcss/typography";
+
 
 /* For the email input in the Newsletter component */
 input[type="email"]:-webkit-autofill,
@@ -29,17 +31,6 @@ input[type="email"]:-webkit-autofill:active {
   --breakpoint-xl: 1595px;
 }
 
-
-html[data-theme="myLightTheme"] {
-  background-color: #EAEAEA; /* text color */
-  color: #2E2B2C; /* background color */
-}
-
-html[data-theme="myDarkTheme"] {
-  background-color: #2E2B2C; /* text color */
-  color: #EAEAEA; /* text color */
-}
-
 .nav-links {
   @apply hover:bg-[#2E2B2C] hover:text-[#EAEAEA] p-1.5 transition-colors duration-300 ease-in-out rounded-sm;
 }
@@ -57,11 +48,59 @@ html[data-theme="myDarkTheme"] {
 }
 
 .tags {
-  @apply bg-[#2E2B2C] text-[#EAEAEA] px-2.5 py-1 rounded-full
+  @apply bg-[#2E2B2C] text-[#EAEAEA] px-2.5 py-1 rounded-full text-xs flex items-center
 }
 
 
+html[data-theme="myLightTheme"] {
+  background-color: #EAEAEA; /* text color */
+  color: #2E2B2C; /* background color */
+
+  .prose {
+    /* Text color for body, paragraphs within prose */
+    --tw-prose-body: #2E2B2C;
+    /* Heading colors */
+    --tw-prose-headings: #2E2B2C;
+    /* Link colors */
+    --tw-prose-links: #007bff; /* Example: blue links in light mode */
+    /* Bold text color */
+    --tw-prose-bold: #2E2B2C;
+    /* Code text color */
+    --tw-prose-code: #FFD230; /* Example: a distinct color for inline code */
+    /* Code block background */
+    --tw-prose-pre-bg: #F8F8F8; /* Light background for code blocks */
+    /* Code block text color */
+    --tw-prose-pre-code: #FFD230;
+    /* Color of numbers and bullets */
+    --tw-prose-counters: #2E2B2C;
+    --tw-prose-bullets: #2E2B2C;
+  }
+}
+
 html[data-theme="myDarkTheme"] {
+  background-color: #2E2B2C; /* text color */
+  color: #EAEAEA; /* text color */
+
+  .prose {
+    /* Text color for body, paragraphs within prose */
+    --tw-prose-body: #EAEAEA;
+    /* Heading colors */
+    --tw-prose-headings: #EAEAEA;
+    /* Link colors */
+    --tw-prose-links: #007bff; /* Example: lighter blue links in dark mode */
+    /* Bold text color */
+    --tw-prose-bold: #EAEAEA;
+    /* Code text color */
+    --tw-prose-code: #FFD230; /* Example: a distinct color for inline code */
+    /* Code block background */
+    --tw-prose-pre-bg: #1A1A1A; /* Dark background for code blocks */
+    /* Code block text color */
+    --tw-prose-pre-code: #FFD230;
+    /* Color of numbers and bullets */
+    --tw-prose-counters: #EAEAEA;
+    --tw-prose-bullets: #EAEAEA;
+  }
+
   .nav-links {
     @apply hover:bg-[#EAEAEA] hover:text-[#2E2B2C]
   }
@@ -82,4 +121,5 @@ html[data-theme="myDarkTheme"] {
    @apply fill-[#EAEAEA]
   }
 }
+
 
