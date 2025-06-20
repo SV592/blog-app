@@ -61,11 +61,32 @@ export async function fetchPlaylistDataFromServer(playlistId: string = '4sm1LiCc
         });
 
         if (!response.ok) {
-            // Log error details if the proxy call fails
-            const errorData = await response.text
-            console.error('Server Utils: Failed to fetch playlist data via /api/spotify-proxy for SSR (Status:', response.status, ') Error:', errorData);
+            let errorData;
+            
+            try {
+                // Attempt to parse the response body as JSON first.
+                // This is usually what your API routes send for errors.
+                errorData = await response.json();
+            } catch (e) {
+                // If response.json() throws an error (meaning the body is not valid JSON),
+                // then try to read the body as plain text.
+                console.log("No error message" + e);
+                errorData = await response.text();
+                // If the text is empty, provide a fallback message.
+                if (!errorData) {
+                    errorData = 'No readable error body from proxy (non-JSON or empty)';
+                }
+            }
+
+            // Now, errorData will contain either the parsed JSON object or the raw text of the error.
+            console.error(
+                'Server Utils: Failed to fetch playlist data via /api/spotify-proxy for SSR (Status:',
+                response.status,
+                ') Error:',
+                errorData
+            );
             return null; // Return null on failure to get data
-        }
+}
 
         // Parse the response from your proxy (which should be the raw Spotify data)
         const data = await response.json();
