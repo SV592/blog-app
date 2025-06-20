@@ -1,5 +1,5 @@
 ---
-title: JavaScript Behind The Scenes
+title: JavaScript Behind the Scenes
 date: "2025-06-18"
 description: Dive deep into how JavaScript actually works under the hood, from the call stack to the event loop.
 tags: ["JavaScript", "Core", "Advanced"]

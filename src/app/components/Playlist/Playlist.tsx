@@ -44,14 +44,16 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({ initialPlaylistData }) 
       <div className='flex flex-col w-full border-2 items-center rounded-sm p-4 gap-4 xl:w-[50%] lg:flex-row'>
         {/* Album Art */}
         <div className='w-[95%] h-[20vh] sm:h-[30vh] md:h-[40vh] lg:h-[40vh] md:w-full relative'>
-          <Image
-            src="/blogImages/headphones.jpg"
-            alt="feature image"
-            fill
-            objectFit='cover'
-            className='rounded-sm'
-            priority={true}
-          />
+          <a href="https://open.spotify.com/playlist/4sm1LiCcKQDxZcgUqe1A7P?si=60f4e66287024cbc" className='cursor-pointer' target='_blank'>
+            <Image
+              src="/blogImages/headphones.jpg"
+              alt="feature image"
+              fill
+              objectFit='cover'
+              className='rounded-sm'
+              priority={true}
+              />
+          </a>
         </div>
 
         {/* Track list and info */}

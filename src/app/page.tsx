@@ -1,10 +1,10 @@
+import { JSX } from "react";
 import { Featured } from "./components/Featured/Featured";
 import { Blogs } from "./components/Blogs/Blogs";
 import { Playlist } from "./components/Playlist/Playlist";
 import { Newsletter } from "./components/Newsletter/Newsletter";
 import { fetchPlaylistDataFromServer } from "./utils/spotifyServerUtils";
 import { getSortedPostsData, PostData } from "./utils/postsUtils";
-import { JSX } from "react";
 
 // Home page component as an async arrow function
 const Home: React.FC = async (): Promise<JSX.Element> => {
@@ -23,34 +23,34 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
     // Main container for the home page
     <main className="flex flex-col items-center text-center md:text-left mt-4">
       {/* Featured section */}
-      <div className="w-[85%] md:w-[95%]">
+      <section className="w-[85%] md:w-[95%]" id="Featured">
         <h1 className="font-bold text-3xl underline">Featured</h1>
         {latestPost ? (
           <Featured post={latestPost} />
         ) : (
           <p>No featured post available.</p>
         )}
-      </div>
+      </section>
 
       {/* Playlist section */}
-      <div className="w-[85%] md:w-[95%] mt-10">
+      <section className="w-[85%] md:w-[95%] mt-10" id="Playlist">
         <h1 className="font-bold text-3xl underline">Playlist</h1>
           <Playlist initialPlaylistData={initalPlaylist}/>
-      </div>
+      </section>
 
       {/* Other blog posts section */}
-      <div className="w-[85%] md:w-[95%] mt-10">
-        <h1 className="font-bold text-3xl underline">Other Posts</h1>
+      <section className="w-[85%] md:w-[95%] mt-10" id="Posts">
+        <h1 className="font-bold text-3xl underline">Posts</h1>
           {otherPosts.map((post) => (
             // Each individual blog post card
             <Blogs key={post.slug} post={post} />
           ))}
-      </div>
+      </section>
 
-      <div className="w-[85%] md:w-[95%] mt-10">
+      <section className="w-[85%] md:w-[95%] mt-10" id="Newsletter">
         <h1 className="font-bold text-3xl underline">Newsletter</h1>
           <Newsletter />
-      </div>
+      </section>
     </main>
   );
 };

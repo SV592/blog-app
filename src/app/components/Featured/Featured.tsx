@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { PostData } from '../../utils/postsUtils'; 
+import { formatDateString } from '@/app/utils/formatDateString';
 
 interface FeaturedProps {
   post: PostData; // Expect a single PostData object as a prop
@@ -16,11 +17,7 @@ export const Featured: React.FC<FeaturedProps> = ({ post }) => {
   }
 
   // Format date for display
-  const displayDate = new Date(post.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const displayDate = formatDateString(post.date);
 
 
   return (

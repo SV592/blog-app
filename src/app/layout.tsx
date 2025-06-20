@@ -117,7 +117,7 @@ export default function RootLayout({
     // Set language and font, suppress hydration warning for SSR/CSR mismatch
     <html lang="en" className={`${oswald.className}`} suppressHydrationWarning>
       {/* Main body with transition and margin styling */}
-      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10 min-w-[280px]">
+      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10 min-w-[260px]">
         {/* ThemeProvider persists theme preferences across sessions */}
         <ThemeProvider
           attribute={"data-theme"}

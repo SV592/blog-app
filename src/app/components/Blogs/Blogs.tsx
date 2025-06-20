@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 
 import { PostData } from '../../utils/postsUtils'; // Import your PostData interface
+import { formatDateString } from '@/app/utils/formatDateString';
 
 interface FeaturedProps {
   post: PostData; // Expect a single PostData object as a prop
@@ -16,11 +17,7 @@ export const Blogs: React.FC<FeaturedProps> = ({ post }) => {
   }
 
   // Format date for display
-  const displayDate = new Date(post.date).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  const displayDate = formatDateString(post.date);
 
   return (
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4'>

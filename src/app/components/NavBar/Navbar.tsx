@@ -1,15 +1,56 @@
 "use client";
-import React from "react";
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 // Navbar component using Tailwind CSS for styling
 export const Navbar: React.FC = () => {
   // State to manage the visibility of the mobile menu
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams()
 
   // Function to toggle the menu's open/close state
   const toggleMenu = (): void => {
     setMenuOpen(!menuOpen);
+  };
+
+  // Effect to handle scrolling after a navigation
+  useEffect(() => {
+    // Check if there's a hash in the URL (e.g., /#featured)
+    const hash = window.location.hash;
+    if (hash) {
+      const id = hash.substring(1); // Remove the '#'
+      const element = document.getElementById(id);
+      if (element) {
+        // Use a small timeout to ensure the element is fully rendered and the layout is stable
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+          
+          // This ensures the URL returns to '/' after navigating from a blog post
+          if (pathname === '/') { // Only remove hash if we are on the homepage
+            window.history.replaceState({}, document.title, window.location.pathname);
+          }
+        }, 100); // Adjust timeout if needed (e.g., 50ms, 200ms)
+      }
+    }
+  }, [pathname, searchParams]); // Re-run effect when path or search params change
+
+   // Function to handle link clicks
+  const handleNavLinkClick = (sectionId: string) => {
+    setMenuOpen(false); // Close mobile menu
+
+    // If already on the homepage, just scroll
+    if (pathname === '/') {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If navigating from another page (e.g., /blog/[slug]), navigate to homepage with hash
+      // The useEffect above will handle the scrolling once the homepage is loaded
+      router.push(`/#${sectionId}`);
+    }
   };
 
   return (
@@ -22,20 +63,18 @@ export const Navbar: React.FC = () => {
       <div className="hidden md:flex gap-3.5 cursor-pointer">
 
         {/* Link to latest posts */}
-        <a className="nav-links">All</a>
+        <a onClick={() => handleNavLinkClick('Featured')} className="nav-links">Featured</a>
 
         {/* Link to trending posts */}
-        <a className="nav-links">Trending</a>
+        <a onClick={() => handleNavLinkClick('Playlist')} className="nav-links">Playlist</a>
 
         {/* Link to JavaScript category */}
-        <a className="nav-links">JavaScript</a>
+        <a onClick={() => handleNavLinkClick('Posts')} className="nav-links">Posts</a>
 
         {/* Link to Python category */}
-        <a className="nav-links">Python</a>
-
-        {/* Link to C++ category */}
-        <a className="nav-links">C++</a>
+        <a onClick={() => handleNavLinkClick('Newsletter')} className="nav-links">Newsletter</a>
       </div>
+
 
       {/* Hamburger Icon (Shown on small screens, hidden on medium and larger) */}
       <button
@@ -57,14 +96,12 @@ export const Navbar: React.FC = () => {
       {menuOpen && (
         <div className="md:hidden absolute top-full right-0 w-full bg-[#2E2B2C] dark:bg-[#EAEAEA] shadow-lg p-4 flex flex-col z-50 cursor-pointer">
           {/* Apply nav-links style, but also make them block for full width and add padding */}
-          <a className="nav-links block py-2 px-4 text-center" onClick={toggleMenu}>Latest</a>
-          <a className="nav-links block py-2 px-4 text-center" onClick={toggleMenu}>Trending</a>
-          <a className="nav-links block py-2 px-4 text-center" onClick={toggleMenu}>JavaScript</a>
-          <a className="nav-links block py-2 px-4 text-center" onClick={toggleMenu}>Python</a>
-          <a className="nav-links block py-2 px-4 text-center" onClick={toggleMenu}>C++</a>
+          <a className="nav-links block py-2 px-4 text-center" onClick={() => {toggleMenu();  handleNavLinkClick('Featured')}}>Featured</a>
+          <a className="nav-links block py-2 px-4 text-center" onClick={() => {toggleMenu(); handleNavLinkClick('Playlist')}}>Playlist</a>
+          <a className="nav-links block py-2 px-4 text-center" onClick={() => {toggleMenu(); handleNavLinkClick('Posts')}}>Posts</a>
+          <a className="nav-links block py-2 px-4 text-center" onClick={() => {toggleMenu(); handleNavLinkClick('Newsletter')}}>Newsletter</a>
         </div>
       )}
-
     </nav>
   )
 }

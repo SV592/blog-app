@@ -9,7 +9,7 @@ export const Header: React.FC = () => {
       <div className='flex flex-col items-center font-bold text-[2.5rem] sm:text-[4rem] md:text-[7rem] lg:text-[9rem]'>
         {/* Main title */}
         <div className='flex gap-2 md:gap-4'>
-          <h1>Gazette</h1>
+          <h1>Headlines</h1>
           {/* <h1>Blocks</h1> */}
         </div>
           
