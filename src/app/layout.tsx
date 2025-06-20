@@ -7,6 +7,7 @@ import { Navbar } from "./components/Navbar/Navbar";
 import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { Toaster } from "react-hot-toast";
+import { Suspense } from "react";
 import "./globals.css";
 
 
@@ -126,7 +127,9 @@ export default function RootLayout({
           themes={["myLightTheme", "myDarkTheme"]}
         >
           {/* Navigation bar at the top */}
-          <Navbar />
+          <Suspense fallback={null}>
+            <Navbar />
+          </Suspense>
           {/* Main header section */}
           <Header />
           {/* Main content area (children) */}
