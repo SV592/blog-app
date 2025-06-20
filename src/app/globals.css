@@ -68,7 +68,7 @@ html[data-theme="myLightTheme"] {
     /* Code text color */
     --tw-prose-code: #FFD230; /* Example: a distinct color for inline code */
     /* Code block background */
-    --tw-prose-pre-bg: #F8F8F8; /* Light background for code blocks */
+    --tw-prose-pre-bg: #1A1A1A; /* Light background for code blocks */
     /* Code block text color */
     --tw-prose-pre-code: #FFD230;
     /* Color of numbers and bullets */

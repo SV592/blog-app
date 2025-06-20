@@ -23,7 +23,7 @@ export const Header: React.FC = () => {
         {/* <h1 className='font-bold text-[1rem] hidden xl:block md:text-xl lg:text-2xl'>Welcome</h1> */}
         {/* Overview description */}
          <p className='text-center text-[1rem]'>
-          I&apos;m Shaquille, and this is my Blog – born from my passion for sharing unique solutions and creative methods to brighten up coding concepts.
+          I&apos;m Shaquille, a Software Engineer bringing 3+ years of experience. Here, I offer my insights and perspectives on various coding topics.
          </p>
          {/* Social links */}
         <div className='flex justify-center'> 
