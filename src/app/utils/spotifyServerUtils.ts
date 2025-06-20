@@ -41,11 +41,16 @@ type SpotifyTrackSummary = {
 export async function fetchPlaylistDataFromServer(playlistId: string = '4sm1LiCcKQDxZcgUqe1A7P'): Promise<SpotifyTrackSummary[] | null> {
     try {
         // The first argument to URL constructor is relative to the path in the proxy API route.
-        const proxyUrl = new URL(
+        const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+            ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` // Add https:// for Vercel deployments
+            : 'http://localhost:3000'; // Local development URL already has http://
+
+        
+            const proxyUrl = new URL(
             // Pass the actual Spotify API endpoint as the 'endpoint' query parameter
             `/api/spotify-proxy-CPmcif6ulq?endpoint=playlists/${playlistId}/tracks?limit=5`,
-            // Use process.env.NEXT_PUBLIC_VERCEL_URL for deployment, fallback to localhost for dev
-            process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000'
+            // Use the corrected baseUrl here
+            baseUrl
         );
 
         // Make the fetch request to the proxy API
