@@ -16,6 +16,10 @@ export const GET = async (): Promise<NextResponse> => {
   const CLIENT_ID: string | undefined = process.env.SPOTIFY_CLIENT_ID;
   const CLIENT_SECRET: string | undefined = process.env.SPOTIFY_CLIENT_SECRET;
 
+  console.log('--- Spotify Token Endpoint Debug ---');
+  console.log('CLIENT_ID present:', !!CLIENT_ID);
+  console.log('CLIENT_SECRET present:', !!CLIENT_SECRET);
+
   // If credentials are missing, return an error response
   if (!CLIENT_ID || !CLIENT_SECRET) {
     return NextResponse.json(
