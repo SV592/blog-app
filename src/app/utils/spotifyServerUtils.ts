@@ -62,7 +62,7 @@ export async function fetchPlaylistDataFromServer(playlistId: string = '4sm1LiCc
 
         if (!response.ok) {
             // Log error details if the proxy call fails
-            const errorData = await response.json().catch(() => ({ message: 'No error body from proxy' }));
+            const errorData = await response.text
             console.error('Server Utils: Failed to fetch playlist data via /api/spotify-proxy for SSR (Status:', response.status, ') Error:', errorData);
             return null; // Return null on failure to get data
         }
