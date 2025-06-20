@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 // Navbar component using Tailwind CSS for styling
-export const Navbar: React.FC = () => {
+const Navbar: React.FC = () => {
   // State to manage the visibility of the mobile menu
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const router = useRouter();
@@ -105,3 +105,5 @@ export const Navbar: React.FC = () => {
     </nav>
   )
 }
+
+export default Navbar;

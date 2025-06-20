@@ -3,10 +3,10 @@ import { JSX } from "react";
 import { ThemeProvider } from "next-themes";
 import { Oswald } from "next/font/google";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle";
-import { Navbar } from "./components/Navbar/Navbar";
-import { Header } from "./components/Header/Header";
-import { Footer } from "./components/Footer/Footer";
-import { Toaster } from "react-hot-toast";
+import  Navbar  from "./components/Navbar/Navbar";
+import  Header from "./components/Header/Header";
+import  Footer  from "./components/Footer/Footer";
+import  { Toaster }  from "react-hot-toast";
 import { Suspense } from "react";
 import "./globals.css";
 

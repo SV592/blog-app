@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Footer component displays a fixed footer at the bottom of the page
-export const Footer: React.FC = () => {
+const Footer: React.FC = () => {
   return (
     // Fixed 5 units from the bottom of the viewport
     <footer className="my-5 text-center">
@@ -15,3 +15,5 @@ export const Footer: React.FC = () => {
     </footer>
   )
 }
+
+export default Footer;
