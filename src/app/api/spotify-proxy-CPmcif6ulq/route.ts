@@ -18,7 +18,11 @@ const getAppAccessToken = async (): Promise<string | null> => {
     try {
         // Call the spotify-app-token API route
         // Use process.env.NEXT_PUBLIC_VERCEL_URL for production deployment
-        const tokenRouteUrl = new URL('/api/spotify-app-token-S2Fg3uMRzH', process.env.NEXT_PUBLIC_VERCEL_URL || 'http://localhost:3000');
+        const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+            ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` // Add https:// for Vercel deployments
+            : 'http://localhost:3000'; // Local development URL already has http://
+
+        const tokenRouteUrl = new URL('/api/spotify-app-token-S2Fg3uMRzH', baseUrl);
 
         const response = await fetch(tokenRouteUrl.toString());
 
