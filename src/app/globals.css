@@ -32,8 +32,12 @@ input[type="email"]:-webkit-autofill:active {
 }
 
 .nav-links {
-  @apply hover:bg-[#2E2B2C] hover:text-[#EAEAEA] p-1.5 transition-colors duration-300 ease-in-out rounded-sm;
+  @apply hover:bg-[#2E2B2C] hover:text-[#EAEAEA] bg-[#EAEAEA] text-[#2E2B2C] p-1.5 transition-colors duration-300 ease-in-out rounded-sm;
 }
+
+ .bg-color {
+    @apply bg-[#EAEAEA] 
+  }
 
 .social-links {
   @apply px-1.5 py-0.5 gap-2 flex text-[#2E2B2C] bg-amber-300 items-center rounded-sm cursor-pointer border-1 transform hover:-translate-y-1 transition-transform duration-300;
@@ -116,7 +120,11 @@ html[data-theme="myDarkTheme"] {
   }
 
   .nav-links {
-    @apply hover:bg-[#EAEAEA] hover:text-[#2E2B2C]
+    @apply hover:bg-[#EAEAEA] hover:text-[#2E2B2C] bg-[#2E2B2C] text-[#EAEAEA]
+  }
+
+  .bg-color {
+    @apply bg-[#2E2B2C] 
   }
 
   .featured {
