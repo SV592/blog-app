@@ -40,7 +40,12 @@ const Navbar: React.FC = () => {
       {/* Interactive Mobile Nav and Theme Toggle - These must be Client Components */}
       <div className="flex block sm:hidden  items-center gap-2">        
         {/* Render the MobileNavClient for the hamburger menu and its logic */}
-        <ThemeProvider>
+        <ThemeProvider
+          attribute={"data-theme"}
+          defaultTheme="myLightTheme"
+          enableSystem={false}
+          themes={["myLightTheme", "myDarkTheme"]}
+        >
           <MobileNavClient navLinks={navLinks} />
         </ThemeProvider>
       </div>
