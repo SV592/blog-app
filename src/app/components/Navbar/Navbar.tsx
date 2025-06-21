@@ -1,6 +1,7 @@
 import React from "react";
 import Link from 'next/link'; 
 import MobileNavClient from './MobileNavbar';
+import { ThemeProvider } from "next-themes";
 
 // Navigation links once here (can be moved to a utils file if preferred)
 const navLinks = [
@@ -39,7 +40,9 @@ const Navbar: React.FC = () => {
       {/* Interactive Mobile Nav and Theme Toggle - These must be Client Components */}
       <div className="flex block sm:hidden  items-center gap-2">        
         {/* Render the MobileNavClient for the hamburger menu and its logic */}
-        <MobileNavClient navLinks={navLinks} />
+        <ThemeProvider>
+          <MobileNavClient navLinks={navLinks} />
+        </ThemeProvider>
       </div>
     </nav>
   );
