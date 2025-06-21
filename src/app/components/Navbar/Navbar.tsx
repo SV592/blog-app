@@ -1,8 +1,8 @@
-import React from "react";
-import Link from 'next/link'; 
-import MobileNavClient from './MobileNavbar';
+'use client'; 
+import React, { useState } from "react";
+import Link from 'next/link';
 
-// Navigation links once here (can be moved to a utils file if preferred)
+// Navigation links (can still be moved to a utils file if preferred)
 const navLinks = [
   { id: 'Featured', label: 'Featured' },
   { id: 'Playlist', label: 'Playlist' },
@@ -11,54 +11,72 @@ const navLinks = [
 ];
 
 const Navbar: React.FC = () => {
+  // State for mobile menu visibility
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
+
+  const toggleMenu = (): void => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const handleNavLinkClick = () => {
+    setMenuOpen(false); // Close mobile menu on link click
+    // No need for complex scroll logic here, Link will handle navigation
+    // and browser's default hash scroll will occur (instant jump).
+  };
+
   return (
     // Navigation bar container with flex layout
-    <nav className="flex pt-4 mb-4 flex items-center place-content-between relative gap-4">
-      {/* Blog title - this part is static and can be server-rendered */}
+    <nav className="flex pt-4 mb-4 items-center place-content-between relative gap-4">
+      {/* Blog title */}
       <Link href="/">
         <h1 className="text-xl md:text-2xl lg:text-3xl font-bold">The Programmer&apos;s Gazette</h1>
       </Link>
 
-      {/* Desktop Navigation links - static and can be server-rendered */}
+      {/* Desktop Navigation links (hidden on small screens) */}
       <div className="hidden sm:flex gap-2">
-        <Link
-          key={"Featured"}
-          href={`/#Featured`} // Link to the section ID on the homepage
-          className="nav-links cursor-pointer"
-        >
-          Featured
-        </Link>
-       
-        <Link
-          key={"Playlist"}
-          href={`/#Playlist`} // Link to the section ID on the homepage
-          className="nav-links cursor-pointer"
-        >
-          Playlist
-        </Link>
-       
-        <Link
-          key={"Posts"}
-          href={`/#Posts`} // Link to the section ID on the homepage
-          className="nav-links cursor-pointer"
-        >
-          Featured
-        </Link>
-       
-        <Link
-          key={"Newsletter"}
-          href={`/#Newsletter`} // Link to the section ID on the homepage
-          className="nav-links cursor-pointer"
-        >
-          Newsletter
-        </Link>
-       
+        {navLinks.map((link) => (
+          <Link
+            key={link.id}
+            href={`/#${link.id}`} // Link to the section ID on the homepage
+            className="nav-links cursor-pointer"
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
 
-      {/* Interactive Mobile Nav and Theme Toggle - These must be Client Components */}
-      <div className="flex block sm:hidden  items-center gap-2">        
-        {/* Render the MobileNavClient for the hamburger menu and its logic */}
-          <MobileNavClient navLinks={navLinks} />
+      {/* Mobile Menu & Hamburger Icon (shown only on small screens) */}
+      <div className="flex sm:hidden items-center gap-2"> {/* This div shows only on sm and below */}
+        {/* Hamburger Icon */}
+        <button
+          onClick={toggleMenu}
+          className="z-10 overflow-hidden cursor-pointer" // No `md:hidden` or `sm:hidden` here, as parent div controls visibility
+          aria-label="Toggle navigation menu"
+        >
+          <svg className="h-6 w-6 fill-current" viewBox="0 0 24 24" stroke="currentColor">
+            {menuOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
+        </button>
+
+        {/* Mobile Navigation Links (Shown only when menuOpen is true and on small screens) */}
+        {menuOpen && (
+          <div className="absolute top-full right-0 w-full bg-[#2E2B2C] dark:bg-[#EAEAEA] shadow-lg p-4 flex flex-col z-50 cursor-pointer">
+            {navLinks.map((link) => (
+              <Link
+                key={link.id}
+                href={`/#${link.id}`}
+                className="nav-links block py-2 px-4 text-center"
+                onClick={handleNavLinkClick} // Close the menu on link click
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
     </nav>
   );
