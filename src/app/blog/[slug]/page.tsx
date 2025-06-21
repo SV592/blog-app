@@ -73,8 +73,9 @@ export default async function BlogPostPage ({ params }: BlogPostPageProps) {
             <Image
               src={post.image}
               alt={post.title}
+              sizes=''
               fill
-              style={{ objectFit: 'cover' }}
+              objectFit='cover'
               className="rounded-sm"
               priority // Give priority to the main image on the page
             />

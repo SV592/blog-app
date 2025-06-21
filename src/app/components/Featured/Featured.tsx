@@ -49,6 +49,7 @@ export const Featured: React.FC<FeaturedProps> = ({ post }) => {
             <Image 
               src={post.image || ""} 
               alt={post.title} 
+              sizes=''
               fill 
               objectFit='cover'
               className='rounded-sm' 

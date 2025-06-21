@@ -20,7 +20,7 @@ input[type="email"]:-webkit-autofill:active {
     /* To remove any autofill border color */
     border: 2px solid #2E2B2C !important;
 }
-
+ 
 
 @theme {
   /* Tailwind screen sizes config */
@@ -49,6 +49,20 @@ input[type="email"]:-webkit-autofill:active {
 
 .tags {
   @apply bg-[#2E2B2C] text-[#EAEAEA] px-2.5 py-1 rounded-full text-xs flex items-center
+}
+
+.prose pre {
+  /* This ensures horizontal scrolling *if* content still overflows even after wrapping */
+  overflow-x: auto; 
+
+  /* REQUIRED: Allows long lines to wrap within the code block */
+  white-space: pre-wrap; 
+  
+  /* REQUIRED: Breaks very long, unbreakable words/strings so they don't force width */
+  word-break: break-all; 
+  
+  /* Recommended for broader compatibility with word-break */
+  word-wrap: break-word; 
 }
 
 
