@@ -123,7 +123,7 @@ export default function RootLayout({
         <ThemeProvider
           attribute={"data-theme"}
           defaultTheme="myLightTheme"
-          enableSystem
+          enableSystem={false}
           themes={["myLightTheme", "myDarkTheme"]}
         >
           {/* Navigation bar at the top */}
