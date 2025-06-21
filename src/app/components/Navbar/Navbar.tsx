@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="flex pt-4 items-center place-content-between relative gap-4">
       {/* Blog title */}
-      <h1 className="text-2xl md:text-3xl font-bold">The Programmer Gazette</h1>
+      <h1 className="text-2xl md:text-3xl font-bold">The Programmer&apos;s Gazette</h1>
 
       {/* Navigation links */}
       <div className="hidden md:flex gap-4 cursor-pointer">
