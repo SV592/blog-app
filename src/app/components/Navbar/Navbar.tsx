@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
           attribute={"data-theme"}
           defaultTheme="myLightTheme"
           enableSystem={false}
-          themes={["myLightTheme", "myDarkTheme"]}
+          themes={["myDarkTheme", "myLightTheme"]}
         >
           <MobileNavClient navLinks={navLinks} />
         </ThemeProvider>
