@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
       </Link>
 
       {/* Desktop Navigation links - static and can be server-rendered */}
-      <div className="hidden md:flex gap-2">
+      <div className="hidden sm:flex gap-2">
         {navLinks.map((link) => (
           // Use Link component for proper Next.js client-side navigation
           // We'll mimic the onClick behavior for scrolling directly on the homepage
