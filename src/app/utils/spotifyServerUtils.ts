@@ -34,9 +34,9 @@ type SpotifyTrackSummary = {
 
 /**
  * Fetches playlist data from Spotify for a given playlist ID by calling the /api/spotify-proxy route.
- * This function is intended for server-side rendering (SSR) of initial data.
+ * For intended for server-side rendering (SSR) of initial data.
  * Returns an array of simplified track summaries, or null if the request fails.
- * @param playlistId - The Spotify playlist ID to fetch (default is a sample playlist)
+ * @param playlistId - The Spotify playlist ID to fetch
  */
 export async function fetchPlaylistDataFromServer(
   playlistId: string = "4sm1LiCcKQDxZcgUqe1A7P"
@@ -44,7 +44,7 @@ export async function fetchPlaylistDataFromServer(
   try {
     // The first argument to URL constructor is relative to the path in the proxy API route.
     const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` // Add https:// for Vercel deployments
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` // for Vercel deployments
       : "http://localhost:3000"; // Local development URL already has http://
 
     const proxyUrl = new URL(
@@ -63,18 +63,17 @@ export async function fetchPlaylistDataFromServer(
 
     if (!response.ok) {
       // Attempt to read the response body as text first in case it's HTML or plain text,
-      // as that's what's causing the problem.
       // If it's JSON, JSON.parse() can handle the string.
       let errorRawText = "No error body received.";
       try {
-        errorRawText = await response.text(); // Read as text FIRST. This consumes the stream.
+        errorRawText = await response.text(); // Read as text FIRST
       } catch (e) {
         console.error("Failed to read response body as text:", e);
       }
 
       let errorData;
       try {
-        // Now, try to parse the obtained text as JSON.
+        // Try to parse the obtained text as JSON.
         // This won't throw "Body is unusable" because the stream is already read into errorRawText.
         errorData = JSON.parse(errorRawText);
       } catch {
@@ -91,10 +90,10 @@ export async function fetchPlaylistDataFromServer(
       return null; // Return null on failure to get data
     }
 
-    // Parse the response from your proxy (which should be the raw Spotify data)
+    // Parse the response from proxy
     const data = await response.json();
 
-    // Basic check to ensure the structure is as expected from Spotify's API
+    // Ensure the structure is as expected from Spotify's API
     if (!data || !data.items) {
       console.error(
         "Server Utils: Proxy returned unexpected data structure for playlist items:",
@@ -103,7 +102,7 @@ export async function fetchPlaylistDataFromServer(
       return null;
     }
 
-    // Map to simplified track summaries as before
+    // Map to simplified track summaries
     return data.items.map((item: SpotifyPlaylistItem) => ({
       id: item.track.id,
       name: item.track.name,
