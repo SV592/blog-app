@@ -35,21 +35,23 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
       {/* Playlist section */}
       <section className="w-[85%] md:w-[95%] mt-10" id="Playlist">
         <h1 className="font-bold text-3xl underline">Playlist</h1>
-          <Playlist initialPlaylistData={initalPlaylist}/>
+        <Playlist initialPlaylistData={initalPlaylist} />
       </section>
 
       {/* Other blog posts section */}
       <section className="w-[85%] md:w-[95%] mt-10" id="Posts">
         <h1 className="font-bold text-3xl underline">Posts</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {otherPosts.map((post) => (
-            // Each individual blog post card
+            // Each Blogs component now correctly becomes a single item within this grid
             <Blogs key={post.slug} post={post} />
           ))}
+        </div>
       </section>
 
       <section className="w-[85%] md:w-[95%] mt-10" id="Newsletter">
         <h1 className="font-bold text-3xl underline">Newsletter</h1>
-          <Newsletter />
+        <Newsletter />
       </section>
     </main>
   );
