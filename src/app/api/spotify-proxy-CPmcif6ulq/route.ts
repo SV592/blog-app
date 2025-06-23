@@ -94,13 +94,15 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
 
   try {
     // Base spotify url
-    const SPOTIFY_API_BASE_URL: string = "https://api.spotify.com/v1";
+    const SPOTIFY_API_BASE_URL: string = "https://api.spotify.com/v1/";
 
     // New url object with endpoint
     const url = new URL(endpoint, SPOTIFY_API_BASE_URL);
 
     // Construct the full Spotify API URL
     const spotifyApiUrl: string = url.href;
+
+    console.log(spotifyApiUrl);
 
     // Forward the request to the Spotify API with the internally obtained access token
     const spotifyResponse: Response = await fetch(spotifyApiUrl, {
