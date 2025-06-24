@@ -4,7 +4,6 @@ date: "2025-06-20"
 description: Dive deep into how JavaScript actually works under the hood, from the call stack to the event loop.
 tags: ["JavaScript", "Core", "Advanced"]
 image: "/blogImages/javascript.jpg"
-isFeatured: true
 slug: javascript-behind-the-scenes
 ---
 
