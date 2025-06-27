@@ -3,34 +3,34 @@ import { JSX } from "react";
 import { ThemeProvider } from "next-themes";
 import { Oswald } from "next/font/google";
 import { ThemeToggle } from "./components/ThemeToggle/ThemeToggle";
-import  Navbar  from "./components/Navbar/Navbar";
-import  Header from "./components/Header/Header";
-import  Footer  from "./components/Footer/Footer";
-import  { Toaster }  from "react-hot-toast";
+import Navbar from "./components/Navbar/Navbar";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import { Toaster } from "react-hot-toast";
 import { Suspense } from "react";
 import "./globals.css";
 
-
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: '#EAEAEA',
-
+  themeColor: "#EAEAEA",
 };
 
 // Metadata for the website (used by Next.js for SEO)
 export const metadata: Metadata = {
-
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"), // Set your base URL dynamically or statically
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+  ), // Set your base URL dynamically or statically
 
   // --- Basic SEO Metadata ---
   title: {
     default: "The Programmer's Gazette - A Coding Blog by Shaquille Pearson",
     template: "%s | The Programmer's Gazette", // For dynamic titles on other pages
   },
-  description: "Dive deep into coding concepts, innovative solutions, and technology insights. A blog by Shaquille Pearson for developers of all levels.",
+  description:
+    "Dive deep into coding concepts, innovative solutions, and technology insights. A blog by Shaquille Pearson for developers of all levels.",
   keywords: [
     "coding blog",
     "programming",
@@ -48,45 +48,37 @@ export const metadata: Metadata = {
     "tech blog",
     "developer blog",
   ],
-  authors: [{ name: "Shaquille Pearson", url: "https://www.linkedin.com/in/shaquille-pearson-47bb5a208/" }], // Link to your professional profile
+  authors: [
+    {
+      name: "Shaquille Pearson",
+      url: "https://www.linkedin.com/in/shaquille-pearson-47bb5a208/",
+    },
+  ], // Link to your professional profile
   creator: "Shaquille Pearson", // Your name
   publisher: "The Programmer's Gazette", // Your blog's name
 
   // --- Canonical URL (important for SEO to prevent duplicate content issues) ---
   alternates: {
-    canonical: '/', // For the homepage, use '/'
+    canonical: "/", // For the homepage, use '/'
   },
-  
+
   // --- Open Graph Metadata (for Facebook, LinkedIn, etc.) ---
   openGraph: {
     title: "The Programmer's Gazette - A Coding Blog by Shaquille Pearson",
-    description: "Dive deep into coding concepts, innovative solutions, and technology insights. A blog by Shaquille Pearson for developers of all levels.",
-    // url: BASE_URL, // The canonical URL of the page
+    description:
+      "Dive deep into coding concepts, innovative solutions, and technology insights. A blog by Shaquille Pearson for developers of all levels.",
     siteName: "The Programmer's Gazette",
     images: [
       {
-        url: '/og-image.jpg', // Provide the correct path or URL to your Open Graph image
+        url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: 'The Programmer\'s Gazette blog cover',
+        alt: "The Programmer's Gazette blog cover",
       },
     ],
-    locale: 'en_US',
-    type: 'website', // Use 'article' for blog posts
+    locale: "en_US",
+    type: "website",
   },
-
-  // --- Icons (Favicons) ---
-  // icons: {
-  //   icon: '/favicon.ico', // Standard favicon
-  //   shortcut: '/shortcut-icon.png', // Optional, for older browsers
-  //   apple: '/apple-touch-icon.png', // For Apple devices
-  //   other: [
-  //     {
-  //       rel: 'apple-touch-icon-precomposed',
-  //       url: '/apple-touch-icon-precomposed.png',
-  //     },
-  //   ],
-  // },
 
   // --- Robots (control search engine crawling) ---
   robots: {
@@ -97,15 +89,14 @@ export const metadata: Metadata = {
       index: true,
       follow: true,
       noimageindex: true,
-      'max-video-preview': -1,
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-snippet": -1,
     },
   },
-
-}
+};
 // Import Oswald font from Google Fonts with Cyrillic subset
 const oswald = Oswald({
-  subsets: ['cyrillic'],
+  subsets: ["cyrillic"],
 });
 
 // Root layout component for the app, typed for TypeScript
@@ -118,7 +109,10 @@ export default function RootLayout({
     // Set language and font, suppress hydration warning for SSR/CSR mismatch
     <html lang="en" className={`${oswald.className}`} suppressHydrationWarning>
       {/* Main body with transition and margin styling */}
-      <body suppressHydrationWarning className="transition-colors duration-300 ease-in-out mx-10 min-w-[260px]">
+      <body
+        suppressHydrationWarning
+        className="transition-colors duration-300 ease-in-out mx-10 min-w-[260px]"
+      >
         {/* ThemeProvider persists theme preferences across sessions */}
         <ThemeProvider
           attribute={"data-theme"}

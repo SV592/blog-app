@@ -35,9 +35,9 @@ input[type="email"]:-webkit-autofill:active {
   @apply hover:bg-[#2E2B2C] hover:text-[#EAEAEA] bg-[#EAEAEA] text-[#2E2B2C] p-1.5 transition-colors duration-300 ease-in-out rounded-sm;
 }
 
- .bg-color {
+.bg-color {
     @apply bg-[#EAEAEA] 
-  }
+}
 
 .social-links {
   @apply px-1.5 py-0.5 gap-2 flex text-[#2E2B2C] bg-amber-300 items-center rounded-sm cursor-pointer border-1 transform hover:-translate-y-1 transition-transform duration-300;
@@ -71,8 +71,8 @@ input[type="email"]:-webkit-autofill:active {
 
 
 html[data-theme="myLightTheme"] {
-  background-color: #EAEAEA; /* text color */
-  color: #2E2B2C; /* background color */
+  background-color: #EAEAEA; 
+  color: #2E2B2C; 
 
   .prose {
     /* Text color for body, paragraphs within prose */
@@ -96,8 +96,8 @@ html[data-theme="myLightTheme"] {
 }
 
 html[data-theme="myDarkTheme"] {
-  background-color: #2E2B2C; /* text color */
-  color: #EAEAEA; /* text color */
+  background-color: #2E2B2C; 
+  color: #EAEAEA;
 
   .prose {
     /* Text color for body, paragraphs within prose */
