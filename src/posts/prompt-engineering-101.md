@@ -26,7 +26,7 @@ Include details about the target audience or the background of the request. This
 
 Providing specific examples of the desired output is incredibly powerful. This acts as a direct reference for the AI.
 
-**Example:** To ensure the AI matches your desired tone and style. For example "Act as a busy parent who relies on technology to simplify household chores. Provide a numbered list detailing the top three benefits of owning a robot vacuum, with each benefit described in a single sentence. This information is for an online ad targeting other parents aged 30-45 with toddlers and shedding pets, highlighting how the vacuum solves their common cleaning struggles. _For example, phrase benefits with an empathetic, problem-solving tone, such as: 'Reclaim your precious free time by letting the robot handle daily floor duty.'_" This specific phrasing acts as a **reference** for the desired stylistic flair and emotional connection.
+**Example:** To ensure the AI matches your desired tone and style. For example "Act as a busy parent who relies on technology to simplify household chores. Provide a numbered list detailing the top three benefits of owning a robot vacuum, with each benefit described in a single sentence. This information is for an online ad targeting other parents aged 30-45 with toddlers and shedding pets, highlighting how the vacuum solves their common cleaning struggles. \_For example, phrase benefits with an empathetic, problem-solving tone, such as: 'Reclaim your precious free time by letting the robot handle daily floor duty.'" This specific phrasing acts as a **reference** for the desired stylistic flair and emotional connection.
 
 ## Evaluate:
 
