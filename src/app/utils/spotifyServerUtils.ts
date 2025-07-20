@@ -65,7 +65,7 @@ export async function fetchPlaylistDataFromServer(
     proxyUrl.searchParams.set("playlistId", resolvedPlaylistId ?? "");
     proxyUrl.searchParams.set("limit", "5");
 
-    console.log("Proxy URL:", proxyUrl.toString());
+    // console.log("Proxy URL:", proxyUrl.toString());
 
     // Make the fetch request to the proxy API
     const response = await fetch(proxyUrl.toString(), {
