@@ -13,10 +13,10 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
 
   const allPosts: PostData[] = getSortedPostsData();
 
-  // Get the latest post for the featured section
+  // Get the latest post
   const latestPost: PostData | undefined = allPosts[0];
 
-  // Get all other posts (excluding the latest one)
+  // Get all other posts
   const otherPosts: PostData[] = allPosts.slice(1);
 
   return (
@@ -43,7 +43,6 @@ const Home: React.FC = async (): Promise<JSX.Element> => {
         <h1 className="font-bold text-3xl underline">Posts</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
           {otherPosts.map((post) => (
-            // Each Blogs component now correctly becomes a single item within this grid
             <Blogs key={post.slug} post={post} />
           ))}
         </div>

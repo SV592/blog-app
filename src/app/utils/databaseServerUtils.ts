@@ -1,4 +1,4 @@
-import { Pool, QueryResult, DatabaseError } from "pg"; // Import DatabaseError for more specific error handling
+import { Pool, QueryResult, DatabaseError } from "pg";
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
@@ -19,7 +19,7 @@ export const query = async (
   text: string,
   params: unknown[] = []
 ): Promise<QueryResult> => {
-  let client; // Declare client outside the loop so it can be accessed in finally
+  let client;
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
@@ -28,8 +28,7 @@ export const query = async (
       const res = await client.query(text, params);
       return res; // Query successful, exit function
     } catch (error: unknown) {
-      // Catch any error that occurs during connect or query
-      // --- Specific Error Logging ---
+      // --- Error Logging ---
       console.error(
         `Database query failed (Attempt ${attempt}/${MAX_RETRIES}):`
       );

@@ -20,11 +20,9 @@ export const viewport: Viewport = {
   themeColor: "#EAEAEA",
 };
 
-// Metadata for the website (used by Next.js for SEO)
+// Metadata
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-  ), // Set your base URL dynamically or statically
+  metadataBase: new URL(process.env.BLOG_BASE_URL || "http://localhost:3000"),
 
   // --- Basic SEO Metadata ---
   title: {
@@ -55,16 +53,16 @@ export const metadata: Metadata = {
       name: "Shaquille Pearson",
       url: "https://www.linkedin.com/in/shaquille-pearson-47bb5a208/",
     },
-  ], // Link to your professional profile
-  creator: "Shaquille Pearson", // Your name
-  publisher: "The Programmer's Gazette", // Your blog's name
+  ], // Professional profile
+  creator: "Shaquille Pearson",
+  publisher: "The Programmer's Gazette",
 
-  // --- Canonical URL (important for SEO to prevent duplicate content issues) ---
+  // Canonical URL
   alternates: {
-    canonical: "/", // For the homepage, use '/'
+    canonical: "/",
   },
 
-  // --- Open Graph Metadata (for Facebook, LinkedIn, etc.) ---
+  // --- Open Graph Metadata ---
   openGraph: {
     title: "The Programmer's Gazette - A Coding Blog by Shaquille Pearson",
     description:

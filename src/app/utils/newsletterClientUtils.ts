@@ -14,13 +14,22 @@ interface SubscribeError {
  * @param email - The email address to subscribe.
  * @returns A promise that resolves to a success or error response.
  */
-export const subscribeToNewsletter = async ( email: string): Promise<SubscribeResponse | SubscribeError> => {
+export const subscribeToNewsletter = async (
+  email: string
+): Promise<SubscribeResponse | SubscribeError> => {
+  // Internal url endpoint
+  const endpoint: string | undefined =
+    process.env.NEXT_PUBLIC_SUBSCRIBE_API_URL;
+  if (!endpoint) {
+    return { message: "Subscription endpoint is not configured." };
+  }
+
   try {
     // Send POST request to the server-side API route
-    const response = await fetch('/api/subscribe-Pf1gHIWuGu', {
-      method: 'POST',
+    const response = await fetch(endpoint, {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email }),
     });
@@ -30,15 +39,21 @@ export const subscribeToNewsletter = async ( email: string): Promise<SubscribeRe
 
     // If the response is OK, return the success message and id
     if (response.ok) {
-      return { message: data.message || 'Subscription successful!', id: data.id };
+      return {
+        message: data.message || "Subscription successful!",
+        id: data.id,
+      };
     } else {
       // If not OK, return the error message
-      return { message: data.message || 'An error occurred during subscription. Please try again.' };
+      return {
+        message:
+          data.message ||
+          "An error occurred during subscription. Please try again.",
+      };
     }
   } catch (error) {
     // Handle network or unexpected errors
-    console.error('API Utility: Error submitting newsletter form:', error);
-    return { message: 'Network error. Please try again later.' };
+    console.error("API Utility: Error submitting newsletter form:", error);
+    return { message: "Network error. Please try again later." };
   }
-
 };

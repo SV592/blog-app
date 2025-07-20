@@ -25,7 +25,7 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({
   // If initialPlaylistData is null, initialize with an empty array
   const [playlistTracks] = useState<Track[]>(initialPlaylistData || []);
 
-  // State for loading indicator - it's always false now as data is expected to be pre-loaded
+  // State for loading indicator
   const [isLoading] = useState<boolean>(false);
 
   // State for error messages - set if initialPlaylistData is null
@@ -72,9 +72,9 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({
           {/* Conditional rendering for loading, error, or track list */}
           {isLoading ? (
             <p>Loading playlist data...</p>
-          ) : error ? ( // This will be set if initialPlaylistData was null
+          ) : error ? (
             <p>{error}</p>
-          ) : playlistTracks.length === 0 ? ( // Check if the initial data was empty
+          ) : playlistTracks.length === 0 ? (
             <p>No tracks found.</p>
           ) : (
             playlistTracks.map((track, index) => (

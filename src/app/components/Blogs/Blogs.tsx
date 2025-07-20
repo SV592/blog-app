@@ -3,7 +3,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { PostData } from "../../utils/postsUtils"; // Import your PostData interface
+import { PostData } from "../../utils/postsUtils";
 import { formatDateString } from "@/app/utils/formatDateString";
 
 interface FeaturedProps {
@@ -49,12 +49,9 @@ export const Blogs: React.FC<FeaturedProps> = ({ post }) => {
         {post.tags &&
           post.tags.length > 0 && ( // Conditionally render tags if available
             <div className="flex gap-2 text-[0.8rem] mt-2">
-              {" "}
               {/* flex-wrap for multiple tags */}
               {post.tags.map((tag: string, index: number) => (
                 <span key={index} className="tags">
-                  {" "}
-                  {/* Use span for individual tags */}
                   {tag}
                 </span>
               ))}

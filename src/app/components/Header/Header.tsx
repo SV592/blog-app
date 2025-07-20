@@ -1,37 +1,49 @@
-import React from 'react'
+import React from "react";
 
 // Header component displays the main title, subtitle, overview, and social links
 const Header: React.FC = () => {
   return (
     // Main container with flex layout for spacing and alignment
-    <div className='flex flex-col place-content-between items-center gap-2 mt-4 md:mt-0'>
+    <div className="flex flex-col place-content-between items-center gap-2 mt-4 md:mt-0">
       {/* Left section: Title and subtitle */}
-      <div className='flex flex-col items-center font-bold text-[2.5rem] sm:text-[4rem] md:text-[7rem] lg:text-[9rem]'>
+      <div className="flex flex-col items-center font-bold text-[2.5rem] sm:text-[4rem] md:text-[7rem] lg:text-[9rem]">
         {/* Main title */}
-        <div className='flex gap-2 md:gap-4'>
+        <div className="flex gap-2 md:gap-4">
           <h1>Headlines</h1>
-          {/* <h1>Blocks</h1> */}
         </div>
-          
-          {/* Sub title */}
-          <h1 className='text-xl mx-2 text-center'>Deconstructing Code & Concepts</h1>
+
+        {/* Sub title */}
+        <h1 className="text-xl mx-2 text-center">
+          Deconstructing Code & Concepts
+        </h1>
       </div>
 
-       {/* Right section: Overview and social links */}
-      <div className='flex flex-col text-center border-t-2 gap-2 py-2'>
-        {/* Overview heading */}
-        {/* <h1 className='font-bold text-[1rem] hidden xl:block md:text-xl lg:text-2xl'>Welcome</h1> */}
+      {/* Right section: Overview and social links */}
+      <div className="flex flex-col text-center border-t-2 gap-2 py-2">
         {/* Overview description */}
-         <p className='text-center text-[1rem]'>
-          I&apos;m Shaquille, a Software Engineer bringing 3+ years of experience. Here, I offer my insights and perspectives on various coding topics.
-         </p>
-         {/* Social links */}
-        <div className='flex justify-center'> 
-          {/* Github link */}     
-          <a href="https://github.com/SV592" target="_blank" className='social-links mx-2'>
-           {/* Github SVG icon */}
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2.24902C6.51613 2.24902 2 6.70064 2 12.249C2 16.6361 4.87097 20.3781 8.87097 21.7329C9.3871 21.8297 9.54839 21.5071 9.54839 21.2813C9.54839 
+        <p className="text-center text-[1rem]">
+          I&apos;m Shaquille, a Software Engineer bringing 3+ years of
+          experience. Here, I offer my insights and perspectives on various
+          coding topics.
+        </p>
+        {/* Social links */}
+        <div className="flex justify-center">
+          {/* Github link */}
+          <a
+            href="https://github.com/SV592"
+            target="_blank"
+            className="social-links mx-2"
+          >
+            {/* Github SVG icon */}
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 24 24"
+              fill="#2E2B2C"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M12 2.24902C6.51613 2.24902 2 6.70064 2 12.249C2 16.6361 4.87097 20.3781 8.87097 21.7329C9.3871 21.8297 9.54839 21.5071 9.54839 21.2813C9.54839 
               21.0555 9.54839 20.4103 9.51613 19.5393C6.74194 20.1845 6.16129 
               18.1845 6.16129 18.1845C5.70968 17.0555 5.03226 16.7329 5.03226
               16.7329C4.12903 16.0877 5.06452 16.0877 5.06452 16.0877C6.06452
@@ -46,15 +58,27 @@ const Header: React.FC = () => {
               15.4748 16.0645 16.3458 13.871 16.5716C14.2258 16.8942 14.5484 17.5393
               14.5484 18.4426C14.5484 19.7974 14.5161 20.8619 14.5161 21.1845C14.5161
               21.4426 14.7097 21.7329 15.1935 21.6361C19.129 20.3135 22 16.6039 22
-              12.1845C21.9677 6.70064 17.4839 2.24902 12 2.24902Z"/>
+              12.1845C21.9677 6.70064 17.4839 2.24902 12 2.24902Z"
+              />
             </svg>
-            <span className='hidden md:block'>Github</span>
+            <span className="hidden md:block">Github</span>
           </a>
           {/* Linkedin link */}
-          <a href="https://www.linkedin.com/in/shaquille-pearson-47bb5a208/" target="_blank" className='social-links mx-2'>
-          {/* Linkedin SVG icon */}
-            <svg width="25" height="25" viewBox="0 0 24 24" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
-              <path d="M19.7065 3H4.34844C3.62264 3 3.04199 3.58065 3.04199 4.30645V19.6935C3.04199
+          <a
+            href="https://www.linkedin.com/in/shaquille-pearson-47bb5a208/"
+            target="_blank"
+            className="social-links mx-2"
+          >
+            {/* Linkedin SVG icon */}
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 24 24"
+              fill="#2E2B2C"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19.7065 3H4.34844C3.62264 3 3.04199 3.58065 3.04199 4.30645V19.6935C3.04199
               20.3903 3.62264 21 4.34844 21H19.6485C20.3743 21 20.9549
               20.4194 20.9549 19.6935V4.27742C21.013 3.58065 20.4323 3 19.7065 3ZM8.35491
               18.3H5.71297V9.73548H8.35491V18.3ZM7.01942 8.54516C6.14846 8.54516 5.4807
@@ -63,75 +87,104 @@ const Header: React.FC = () => {
               8.54516ZM18.371 18.3H15.7291V14.1484C15.7291 13.1613 15.7001 11.8548
               14.3356 11.8548C12.942 11.8548 12.7388 12.9581 12.7388
               14.0613V18.3H10.0968V9.73548H12.6807V10.9258H12.7097C13.0872 10.229 13.9291 9.53226 15.2356
-              9.53226C17.9356 9.53226 18.4291 11.2742 18.4291 13.6548V18.3H18.371Z"/>
+              9.53226C17.9356 9.53226 18.4291 11.2742 18.4291 13.6548V18.3H18.371Z"
+              />
             </svg>
-            <span className='hidden md:block'>Linkedin</span>
+            <span className="hidden md:block">Linkedin</span>
           </a>
           {/* Portfolio link */}
-          <a href="https://shaquillepearson.com/" target="_blank" className='social-links mx-2'>
-          {/* Portfolio SVG icon */}
-            <svg width="25" height="25" viewBox="0 0 24 25" fill="#2E2B2C" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8.75 12.2149C8.75 11.1749 8.79402 10.1203 8.88791 
+          <a
+            href="https://shaquillepearson.com/"
+            target="_blank"
+            className="social-links mx-2"
+          >
+            {/* Portfolio SVG icon */}
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 24 25"
+              fill="#2E2B2C"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.75 12.2149C8.75 11.1749 8.79402 10.1203 8.88791 
               9.10333C9.90434 9.00957 10.9583 8.96561 11.9976 8.96561C13.0381
               8.96561 14.0933 9.00967 15.1107 9.10364C15.2046 10.1205 15.2486
               11.175 15.2486 12.2149C15.2486 13.2547 15.2046 14.3092 15.1107
               15.3262C14.0933 15.4201 13.0381 15.4642 11.9977 15.4642C10.9583
-              15.4642 9.90434 15.4202 8.88789 15.3265C8.79402 14.3094 8.75 13.2548 8.75 12.2149Z"/>
-              <path d="M7.25 12.2149C7.25 11.2502 7.2864 10.2603 7.36623 9.28681C6.4869
+              15.4642 9.90434 15.4202 8.88789 15.3265C8.79402 14.3094 8.75 13.2548 8.75 12.2149Z"
+              />
+              <path
+                d="M7.25 12.2149C7.25 11.2502 7.2864 10.2603 7.36623 9.28681C6.4869
               9.42007 5.66091 9.59719 4.92779 9.82261C3.95114 10.1229 3.19335
               10.4928 2.69303 10.915C2.23786 11.2991 2.02439 11.6974 2.00035
               12.1312C2.00012 12.1592 2 12.1873 2 12.2155C2 12.2432 2.00011
               12.2708 2.00034 12.2984C2.02432 12.7323 2.23779 13.1307
               2.69303 13.5148C3.19335 13.937 3.95114 14.3069 4.92779
               14.6072C5.66091 14.8326 6.4869 15.0097 7.36623 15.143C7.28639
-              14.1695 7.25 13.1796 7.25 12.2149Z"/>
-              <path d="M2.44354 9.26135C3.04107 8.9044 3.73963 8.61863 4.48695
+              14.1695 7.25 13.1796 7.25 12.2149Z"
+              />
+              <path
+                d="M2.44354 9.26135C3.04107 8.9044 3.73963 8.61863 4.48695
               8.38885C5.40891 8.10537 6.44514 7.89523 7.53236 7.74767C7.67993
               6.6612 7.89 5.62569 8.17333 4.70432C8.40344 3.95596 8.68971
-              3.25652 9.04738 2.65845C5.8996 3.62976 3.41543 6.11379 2.44354 9.26135Z"/>
-              <path d="M14.9516 2.65872C15.3092 3.25674 15.5954 3.95609 15.8254
+              3.25652 9.04738 2.65845C5.8996 3.62976 3.41543 6.11379 2.44354 9.26135Z"
+              />
+              <path
+                d="M14.9516 2.65872C15.3092 3.25674 15.5954 3.95609 15.8254
               4.70434C16.1087 5.62584 16.3188 6.6615 16.4663 7.74813C17.5523
               7.89567 18.5873 8.10567 19.5084 8.38885C20.2571 8.61907
               20.9569 8.90549 21.5552 9.2634C20.5838 6.11516 18.0997
-              3.63043 14.9516 2.65872Z"/>
-              <path d="M21.5556 15.1661C20.9572 15.5242 20.2573 15.8107 19.5084
+              3.63043 14.9516 2.65872Z"
+              />
+              <path
+                d="M21.5556 15.1661C20.9572 15.5242 20.2573 15.8107 19.5084
               16.0409C18.5874 16.3241 17.5523 16.5341 16.4664 16.6817C16.3188
               17.7685 16.1088 18.8043 15.8254 19.726C15.5953 20.4745
               15.3091 21.1741 14.9514 21.7723C18.1 20.8005 20.5846
-              18.3151 21.5556 15.1661Z"/>
-              <path d="M12.0022 22.2154C12.4675 22.2145 12.8914 22.0037
+              18.3151 21.5556 15.1661Z"
+              />
+              <path
+                d="M12.0022 22.2154C12.4675 22.2145 12.8914 22.0037
               13.2993 21.5203C13.7214 21.0199 14.0914 20.262 14.3917
               19.2852C14.6169 18.5524 14.794 17.7268 14.9272 16.8478C13.9532
               16.9278 12.9629 16.9642 11.9977 16.9642C11.0336 16.9642
               10.0444 16.9278 9.07148 16.8481C9.20473 17.7269 9.38179
               18.5524 9.60708 19.2852C9.90739 20.262 10.2774 21.0199
               10.6996 21.5203C11.1082 22.0047 11.533 22.2154
-              11.9995 22.2154"/>
-              <path d="M9.04759 21.7725C5.89924 20.8011 3.41472 18.3165 2.4431
+              11.9995 22.2154"
+              />
+              <path
+                d="M9.04759 21.7725C5.89924 20.8011 3.41472 18.3165 2.4431
               15.1682C3.04073 15.5253 3.73945 15.8111 4.48695 16.0409C5.40891
               16.3244 6.44513 16.5346 7.53233 16.6821C7.6799 17.7688 7.88998
-              18.8045 8.17332 19.726C8.40348 20.4746 8.68982 21.1743 9.04759 21.7725Z"/>
-              <path d="M11.9976 7.46561C11.0336 7.46561 10.0444 7.50195 9.07152
+              18.8045 8.17332 19.726C8.40348 20.4746 8.68982 21.1743 9.04759 21.7725Z"
+              />
+              <path
+                d="M11.9976 7.46561C11.0336 7.46561 10.0444 7.50195 9.07152
               7.58167C9.20476 6.70307 9.38181 5.87776 9.60707 5.14519C9.90738
               4.16859 10.2773 3.41083 10.6995 2.91054C11.1082 2.42625
               11.533 2.21558 11.9995 2.21558C12.4659 2.21558 12.8907
               2.42624 13.2993 2.91052C13.7215 3.41081 14.0914 4.16856
               14.3917 5.14516C14.6169 5.87782 14.794 6.70323 14.9272
-              7.58195C13.9532 7.50204 12.9629 7.46561 11.9976 7.46561Z"/>
-              <path d="M16.7486 12.2149C16.7486 11.2503 16.7122 10.2606
+              7.58195C13.9532 7.50204 12.9629 7.46561 11.9976 7.46561Z"
+              />
+              <path
+                d="M16.7486 12.2149C16.7486 11.2503 16.7122 10.2606
               16.6324 9.28732C17.5105 9.42052 18.3353 9.59748 19.0675
               9.82261C20.0442 10.1229 20.802 10.4928 21.3023 10.915C21.7866
               11.3237 21.9973 11.7484 21.9973 12.2149C21.9973 12.6814
               21.7866 13.1061 21.3023 13.5148C20.802 13.937 20.0442
               14.3069 19.0675 14.6072C18.3353 14.8323 17.5105
-              15.0093 16.6324 15.1425C16.7122 14.1691 16.7486 13.1794 16.7486 12.2149Z"/>
+              15.0093 16.6324 15.1425C16.7122 14.1691 16.7486 13.1794 16.7486 12.2149Z"
+              />
             </svg>
-          <span className='hidden md:block'>Portfolio</span>
-        </a>
+            <span className="hidden md:block">Portfolio</span>
+          </a>
         </div>
       </div>
-      </div>
-  )
-}
+    </div>
+  );
+};
 
 export default Header;

@@ -39,24 +39,29 @@ type SpotifyTrackSummary = {
  * @param playlistId - The Spotify playlist ID to fetch
  */
 export async function fetchPlaylistDataFromServer(
-  playlistId: string = "4sm1LiCcKQDxZcgUqe1A7P"
+  playlistId?: string
 ): Promise<SpotifyTrackSummary[] | null> {
   try {
+    const resolvedPlaylistId =
+      playlistId || process.env.NEXT_PUBLIC_SPOTIFY_PLAYLIST_ID;
+
+    // Use proxy API route from env, fallback to default
+    const proxyRoute: string | undefined =
+      process.env.NEXT_PUBLIC_SPOTIFY_PROXY_ROUTE;
+
     // The first argument to URL constructor is relative to the path in the proxy API route.
     const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` // for Vercel deployments
-      : "http://localhost:3000"; // Local development URL already has http://
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+      : "http://localhost:3000";
 
+    // Build the proxy URL with the endpoint as a query parameter
     const proxyUrl = new URL(
-      // Pass the actual Spotify API endpoint as the 'endpoint' query parameter
-      `/api/spotify-proxy-CPmcif6ulq?endpoint=playlists/${playlistId}/tracks?limit=5`,
-      // Use the corrected baseUrl here
+      `${proxyRoute}?endpoint=playlists/${resolvedPlaylistId}/tracks?limit=5`,
       baseUrl
     );
 
     // Make the fetch request to the proxy API
     const response = await fetch(proxyUrl.toString(), {
-      // No 'Authorization' header needed here, the proxy handles token internally.
       // Cache for 1 hour.
       next: { revalidate: 3600 },
     });
@@ -74,7 +79,6 @@ export async function fetchPlaylistDataFromServer(
       let errorData;
       try {
         // Try to parse the obtained text as JSON.
-        // This won't throw "Body is unusable" because the stream is already read into errorRawText.
         errorData = JSON.parse(errorRawText);
       } catch {
         // If it's not valid JSON, just use the raw text.

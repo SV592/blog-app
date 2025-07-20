@@ -1,8 +1,8 @@
-import fs from "fs"; // Node.js file system module
-import path from "path"; // Node.js path module
-import matter from "gray-matter"; // To parse frontmatter
-import { remark } from "remark"; // Markdown processor
-import html from "remark-html"; // Plugin to convert Markdown to HTML
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import { remark } from "remark";
+import html from "remark-html";
 
 // Path to posts directory
 const postsDirectory = path.join(process.cwd(), "src", "posts");
@@ -53,15 +53,13 @@ export async function getPostData(slug: string): Promise<PostData> {
  */
 export function getAllPostSlugs(): string[] {
   const fileNames = fs.readdirSync(postsDirectory);
-  // Returns an array that looks like this:
-  // ['first-post.md', 'second-post.md']
   return fileNames.map((fileName) => {
     return fileName.replace(/\.md$/, ""); // Remove ".md" extension
   });
 }
 
 /**
- * Get sorted list of all posts with only metadata (no full content HTML)
+ * Get sorted list of all posts with only metadata
  * For displaying a featured post section)
  */
 export function getSortedPostsData(): PostData[] {
@@ -71,7 +69,7 @@ export function getSortedPostsData(): PostData[] {
     const fullPath = path.join(postsDirectory, fileName);
     const fileContents = fs.readFileSync(fullPath, "utf8");
 
-    // parse the post metadata
+    // Parse post metadata
     const { data } = matter(fileContents);
 
     // Combine the data with the slug
