@@ -7,15 +7,29 @@ import mailchimp, {
 import { getSortedPostsData, PostData } from "../../utils/postsUtils";
 import { formatDateString } from "@/app/utils/formatDateString";
 
+// Read config from environment variables with fallbacks
+const MAILCHIMP_API_KEY: string | undefined = process.env.MAILCHIMP_API_KEY;
+const MAILCHIMP_API_SERVER: string | undefined =
+  process.env.MAILCHIMP_API_SERVER;
+const MAILCHIMP_AUDIENCE_ID: string | undefined =
+  process.env.MAILCHIMP_AUDIENCE_ID;
+const BLOG_BASE_URL: string | undefined =
+  process.env.BLOG_BASE_URL || "http://localhost:3000";
+
+// Fail early if any required config is missing
+if (!MAILCHIMP_API_KEY || !MAILCHIMP_API_SERVER || !MAILCHIMP_AUDIENCE_ID) {
+  throw new Error(
+    "Mailchimp configuration missing in environment variables. Please set MAILCHIMP_API_KEY, MAILCHIMP_API_SERVER, and MAILCHIMP_AUDIENCE_ID."
+  );
+}
+
 // Configure Mailchimp SDK
 mailchimp.setConfig({
-  apiKey: process.env.MAILCHIMP_API_KEY,
-  server: process.env.MAILCHIMP_API_SERVER,
+  apiKey: MAILCHIMP_API_KEY,
+  server: MAILCHIMP_API_SERVER,
 });
 
-const MAILCHIMP_AUDIENCE_ID = process.env.MAILCHIMP_AUDIENCE_ID as string;
-const BLOG_BASE_URL = process.env.BLOG_BASE_URL || "http://localhost:3000";
-
+// -- BEGIN TYPE DEFINITIONS --
 interface CampaignCreateRecipients {
   list_id: string;
   segment_opts?: {
@@ -68,7 +82,9 @@ interface MailchimpAPIError extends Error {
     body?: MailchimpErrorResponseBody;
   };
 }
+// --- END TYPE DEFINITIONS ---
 
+// Type guard for Mailchimp API errors
 function isMailchimpAPIError(error: unknown): error is MailchimpAPIError {
   return (
     error instanceof Error &&
@@ -76,8 +92,8 @@ function isMailchimpAPIError(error: unknown): error is MailchimpAPIError {
     (error as MailchimpAPIError).response?.body !== undefined
   );
 }
-// --- END EXISTING TYPE DEFINITIONS ---
 
+// API Route Handler: Sends the latest blog post as a Mailchimp newsletter campaign
 export async function GET() {
   try {
     const allPosts: PostData[] = getSortedPostsData();
@@ -90,13 +106,12 @@ export async function GET() {
       );
     }
 
-    const latestPost = allPosts[0]; // This is the absolute newest post
-
-    const numberOfOtherRecentPosts = 3; // To aim for a total of 1 featured + 3 other = 4 posts
-
+    // Get the latest post and 3 other recent posts
+    const latestPost = allPosts[0];
+    const numberOfOtherRecentPosts = 3;
     const otherPostsForNewsletter = allPosts
-      .slice(1) // Start from the second post in the sorted list (skips the latestPost)
-      .slice(0, numberOfOtherRecentPosts); // Take the next N posts from the remaining list
+      .slice(1)
+      .slice(0, numberOfOtherRecentPosts);
 
     const campaignName = `Blog Newsletter - ${formatDateString(
       new Date().toISOString().split("T")[0]
@@ -113,7 +128,7 @@ export async function GET() {
       </p>
     `;
 
-    // 2. Featured Post (always the latestPost), styled like the image
+    // 2. Featured Post
     const featuredPostContent = `
 <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%; border-spacing:0; mso-table-lspace:0pt; mso-table-rspace:0pt; margin-bottom: 30px; border-radius: 8px; border: 1px solid;">
     <tr>
@@ -157,7 +172,7 @@ export async function GET() {
 </table>
     `;
 
-    // 3. Other Posts (using otherPostsForNewsletter)
+    // 3. Other Posts
     let otherPostsContent = ``;
     if (otherPostsForNewsletter.length > 0) {
       otherPostsContent += `
@@ -313,22 +328,24 @@ export async function GET() {
 </html>
     `;
 
+    // Prepare the Mailchimp campaign payload
     const campaignPayload: CampaignCreatePayload = {
       type: "regular",
       recipients: {
-        list_id: MAILCHIMP_AUDIENCE_ID,
+        list_id: MAILCHIMP_AUDIENCE_ID!,
       },
       settings: {
         subject_line: campaignSubject,
         preview_text: latestPost.description,
         title: campaignName,
         from_name: "The Programmer's Gazette",
-        reply_to: "theprogrammersgazette@gmail.com", // Make sure this is a real and VERIFIED email in Mailchimp!
+        reply_to: "theprogrammersgazette@gmail.com",
         to_name: "*|FNAME|*",
-        inline_css: true, // Mailchimp will still try to inline CSS from the <style> block
+        inline_css: true,
       },
     };
 
+    // Create the campaign in Mailchimp
     const campaignCreationResponse = await mailchimp.campaigns.create(
       campaignPayload
     );
@@ -336,9 +353,9 @@ export async function GET() {
       campaignCreationResponse as campaigns.Campaigns;
     const campaignId: string = campaignData.id;
 
-    // Sending full HTML instead of template sections
+    // Sending full HTML
     await mailchimp.campaigns.setContent(campaignId, {
-      html: fullEmailHtml, // Provide the complete HTML string here
+      html: fullEmailHtml,
     });
 
     await mailchimp.campaigns.send(campaignId);
@@ -351,6 +368,7 @@ export async function GET() {
       campaignId: campaignId,
     });
   } catch (error: unknown) {
+    // Log errors
     console.error("Error sending newsletter:");
     if (error instanceof Error) {
       console.error("Error message:", error.message);
@@ -361,6 +379,7 @@ export async function GET() {
     } else {
       console.error("An unexpected error occurred:", error);
     }
+    // Return error response
     return NextResponse.json(
       { message: "Failed to send newsletter. Check server logs for details." },
       { status: 500 }

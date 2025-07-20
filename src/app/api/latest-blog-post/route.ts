@@ -4,13 +4,12 @@ import { getSortedPostsData, PostData } from "../../utils/postsUtils"; // Utilit
 /**
  * API Route Handler: Returns the latest blog post as JSON.
  */
-export async function GET() {
+export const GET = async (): Promise<NextResponse> => {
   try {
     // Get all sorted post data (latest first)
     const allPosts: PostData[] = getSortedPostsData();
 
-    // The first item in the sorted array is the latest post
-    const latestPost = allPosts[0];
+    const latestPost: PostData | undefined = allPosts[0];
 
     // If no posts are found, return a 404 response
     if (!latestPost) {
@@ -20,16 +19,17 @@ export async function GET() {
       );
     }
 
-    // Base URL for your blog (update if your domain changes)
-    const blogBaseUrl = "https://theprogrammersgazette.vercel.app/"; // <--- !!! REPLACE THIS IF NEEDED !!!
+    // Base URL
+    const blogBaseUrl: string | undefined =
+      process.env.BLOG_BASE_URL || "http://localhost:3000";
 
     // Prepare the response data with essential fields for the portfolio card
     const responseData = {
-      title: latestPost.title, // Blog post title
-      url: `${blogBaseUrl}/blog/${latestPost.slug}`, // Full URL to the blog post
-      date: latestPost.date, // Publication date
-      description: latestPost.description, // Short description/snippet
-      imageUrl: latestPost.image ? `${blogBaseUrl}${latestPost.image}` : null, // Full image URL if available
+      title: latestPost.title,
+      url: `${blogBaseUrl}/blog/${latestPost.slug}`,
+      date: latestPost.date,
+      description: latestPost.description,
+      imageUrl: latestPost.image ? `${blogBaseUrl}${latestPost.image}` : null,
     };
 
     // Return the latest post as JSON
@@ -42,4 +42,4 @@ export async function GET() {
       { status: 500 }
     );
   }
-}
+};

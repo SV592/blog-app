@@ -12,9 +12,18 @@ type SpotifyTokenResponse = {
  * Uses the Client Credentials flow to get an app-level token from Spotify.
  */
 export const GET = async (): Promise<NextResponse> => {
-  // Read Spotify credentials from environment variables
+  // Read Spotify credentials
   const CLIENT_ID: string | undefined = process.env.SPOTIFY_CLIENT_ID;
   const CLIENT_SECRET: string | undefined = process.env.SPOTIFY_CLIENT_SECRET;
+
+  // Read Spotify token URL from environment variable, fallback to default
+  const SPOTIFY_TOKEN_URL: string | undefined = process.env.SPOTIFY_TOKEN_URL;
+  if (!SPOTIFY_TOKEN_URL) {
+    return NextResponse.json(
+      { error: "Spotify token URL not set in environment variables." },
+      { status: 500 }
+    );
+  }
 
   // console.log('--- Spotify Token Endpoint Debug ---');
   // console.log('CLIENT_ID present:', !!CLIENT_ID);
@@ -30,21 +39,18 @@ export const GET = async (): Promise<NextResponse> => {
 
   try {
     // Request an app access token from Spotify
-    const response: Response = await fetch(
-      "https://accounts.spotify.com/api/token",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Basic ${Buffer.from(
-            CLIENT_ID + ":" + CLIENT_SECRET
-          ).toString("base64")}`,
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: new URLSearchParams({
-          grant_type: "client_credentials",
-        }).toString(),
-      }
-    );
+    const response: Response = await fetch(SPOTIFY_TOKEN_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${Buffer.from(
+          CLIENT_ID + ":" + CLIENT_SECRET
+        ).toString("base64")}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "client_credentials",
+      }).toString(),
+    });
 
     // If the response is not OK, log and return an error
     if (!response.ok) {

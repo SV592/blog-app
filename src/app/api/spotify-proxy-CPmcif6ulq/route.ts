@@ -16,14 +16,21 @@ const getAppAccessToken = async (): Promise<string | null> => {
     return cachedAccessToken;
   }
 
-  // Token is expired or not present, fetch a new one from your dedicated API route
+  // Token is expired or not present, fetch a new one
   try {
     // Call the spotify-app-token API route
     const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}` // For Vercel deployments
+      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : "http://localhost:3000";
 
-    const tokenRouteUrl = new URL("/api/spotify-app-token-S2Fg3uMRzH", baseUrl);
+    const tokenRoutePath: string | undefined =
+      process.env.SPOTIFY_APP_TOKEN_ROUTE;
+    if (!tokenRoutePath) {
+      throw new Error(
+        "SPOTIFY_APP_TOKEN_ROUTE environment variable is not set."
+      );
+    }
+    const tokenRouteUrl = new URL(tokenRoutePath, baseUrl);
 
     const response = await fetch(tokenRouteUrl.toString());
 
@@ -83,9 +90,9 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   }
 
   // Get access token internally ---
-  const accessToken = await getAppAccessToken(); // This will use caching or fetch from /api/spotify-app-token
+  const accessToken = await getAppAccessToken(); // Use caching or fetch from /api/spotify-app-token
   if (!accessToken) {
-    // If we can't get a token internally, it's a server error
+    // A server error
     return NextResponse.json(
       { error: "Failed to obtain Spotify access token for proxy request." },
       { status: 500 }
@@ -93,16 +100,13 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   }
 
   try {
-    // Base spotify url
-    const SPOTIFY_API_BASE_URL: string = "https://api.spotify.com/v1/";
-
-    // New url object with endpoint
-    const url = new URL(endpoint, SPOTIFY_API_BASE_URL);
+    // URLS
+    const SPOTIFY_API_BASE_URL: string | undefined =
+      process.env.SPOTIFY_API_BASE_URL;
+    const endpointUrl = new URL(endpoint, SPOTIFY_API_BASE_URL);
 
     // Construct the full Spotify API URL
-    const spotifyApiUrl: string = url.href;
-
-    console.log(spotifyApiUrl);
+    const spotifyApiUrl: string = endpointUrl.href;
 
     // Forward the request to the Spotify API with the internally obtained access token
     const spotifyResponse: Response = await fetch(spotifyApiUrl, {
@@ -121,7 +125,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
         errorData
       );
 
-      // If Spotify rejects the token (401/403), invalidate our cache to force a new token acquisition next time
+      // If Spotify rejects the token (401/403), invalidate the cache to get a new token
       if (spotifyResponse.status === 401 || spotifyResponse.status === 403) {
         console.log(
           "Server (Proxy): Received 401/403 from Spotify Web API, invalidating cached token to force re-acquisition."
