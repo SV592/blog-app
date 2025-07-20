@@ -45,20 +45,27 @@ export async function fetchPlaylistDataFromServer(
     const resolvedPlaylistId =
       playlistId || process.env.NEXT_PUBLIC_SPOTIFY_PLAYLIST_ID;
 
-    // Use proxy API route from env, fallback to default
+    // Use proxy API route from env
     const proxyRoute: string | undefined =
       process.env.NEXT_PUBLIC_SPOTIFY_PROXY_ROUTE;
 
-    // The first argument to URL constructor is relative to the path in the proxy API route.
     const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
       ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : "http://localhost:3000";
 
-    // Build the proxy URL with the endpoint as a query parameter
-    const proxyUrl = new URL(
-      `${proxyRoute}?endpoint=playlists/${resolvedPlaylistId}/tracks?limit=5`,
-      baseUrl
-    );
+    if (!proxyRoute) {
+      console.error(
+        "Server Utils: NEXT_PUBLIC_SPOTIFY_PROXY_ROUTE is not defined."
+      );
+      return null;
+    }
+
+    // Build the proxy URL and pass playlistId and limit as separate params (avoids double '?')
+    const proxyUrl = new URL(proxyRoute, baseUrl);
+    proxyUrl.searchParams.set("playlistId", resolvedPlaylistId ?? "");
+    proxyUrl.searchParams.set("limit", "5");
+
+    console.log("Proxy URL:", proxyUrl.toString());
 
     // Make the fetch request to the proxy API
     const response = await fetch(proxyUrl.toString(), {
@@ -67,21 +74,17 @@ export async function fetchPlaylistDataFromServer(
     });
 
     if (!response.ok) {
-      // Attempt to read the response body as text first in case it's HTML or plain text,
-      // If it's JSON, JSON.parse() can handle the string.
       let errorRawText = "No error body received.";
       try {
-        errorRawText = await response.text(); // Read as text FIRST
+        errorRawText = await response.text();
       } catch (e) {
         console.error("Failed to read response body as text:", e);
       }
 
       let errorData;
       try {
-        // Try to parse the obtained text as JSON.
         errorData = JSON.parse(errorRawText);
       } catch {
-        // If it's not valid JSON, just use the raw text.
         errorData = errorRawText;
       }
 
@@ -91,7 +94,7 @@ export async function fetchPlaylistDataFromServer(
         ") Error:",
         errorData
       );
-      return null; // Return null on failure to get data
+      return null;
     }
 
     // Parse the response from proxy

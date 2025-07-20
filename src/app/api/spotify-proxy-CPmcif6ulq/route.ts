@@ -80,7 +80,18 @@ const getAppAccessToken = async (): Promise<string | null> => {
  */
 export const GET = async (request: NextRequest): Promise<NextResponse> => {
   const url = new URL(request.url);
-  const endpoint: string | null = url.searchParams.get("endpoint");
+  const playlistId = url.searchParams.get("playlistId");
+  const limit = url.searchParams.get("limit") || "5";
+
+  if (!playlistId) {
+    return NextResponse.json(
+      { error: "Missing playlistId parameter." },
+      { status: 400 }
+    );
+  }
+
+  // Build the endpoint for Spotify API
+  const endpoint = `playlists/${playlistId}/tracks?limit=${limit}`;
 
   if (!endpoint) {
     return NextResponse.json(
