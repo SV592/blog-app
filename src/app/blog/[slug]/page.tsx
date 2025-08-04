@@ -34,11 +34,11 @@ export const generateMetadata = async ({
     openGraph: {
       title: post.title,
       description: post.description,
-      url: `https://www.yourblogurl.com/blog/${post.slug}`,
+      url: `https://theprogrammersgazette.vercel.app/${post.slug}`,
       type: "article",
       publishedTime: post.date,
       images: post.image
-        ? [{ url: `https://www.yourblogurl.com${post.image}` }]
+        ? [{ url: `https://theprogrammersgazette.vercel.app/${post.image}` }]
         : [],
     },
   };
