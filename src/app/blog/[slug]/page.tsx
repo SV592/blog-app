@@ -38,7 +38,7 @@ export const generateMetadata = async ({
       type: "article",
       publishedTime: post.date,
       images: post.image
-        ? [{ url: `https://theprogrammersgazette.vercel.app/${post.image}` }]
+        ? [{ url: `https://theprogrammersgazette.vercel.app${post.image}` }]
         : [],
     },
   };
