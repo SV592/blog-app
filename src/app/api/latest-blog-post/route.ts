@@ -1,10 +1,17 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import { getSortedPostsData, PostData } from "../../utils/postsUtils"; // Utility to get and sort blog posts
 
 /**
  * API Route Handler: Returns the latest blog post as JSON.
  */
-export const GET = async (): Promise<NextResponse> => {
+export const GET = async (request: NextRequest): Promise<NextResponse> => {
+  const expectedAuthToken = process.env.LATEST_BLOG_POST_AUTH_TOKEN;
+  const receivedAuthToken = request.headers.get('x-auth-token');
+
+  if (!expectedAuthToken || receivedAuthToken !== expectedAuthToken) {
+    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     // Get all sorted post data (latest first)
     const allPosts: PostData[] = getSortedPostsData();
