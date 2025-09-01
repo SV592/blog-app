@@ -53,9 +53,9 @@ export async function fetchPlaylistDataFromServer(
       ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : "http://localhost:3000";
 
-    if (!proxyRoute) {
+    if (!proxyRoute || proxyRoute.trim() === "") {
       console.error(
-        "Server Utils: NEXT_PUBLIC_SPOTIFY_PROXY_ROUTE is not defined."
+        "Server Utils: NEXT_PUBLIC_SPOTIFY_PROXY_ROUTE is not defined or is empty."
       );
       return null;
     }

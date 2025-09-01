@@ -25,9 +25,9 @@ const getAppAccessToken = async (): Promise<string | null> => {
 
     const tokenRoutePath: string | undefined =
       process.env.SPOTIFY_APP_TOKEN_ROUTE;
-    if (!tokenRoutePath) {
+    if (!tokenRoutePath || tokenRoutePath.trim() === "") {
       throw new Error(
-        "SPOTIFY_APP_TOKEN_ROUTE environment variable is not set."
+        "SPOTIFY_APP_TOKEN_ROUTE environment variable is not set or is empty."
       );
     }
     const tokenRouteUrl = new URL(tokenRoutePath, baseUrl);

@@ -18,9 +18,9 @@ export const GET = async (): Promise<NextResponse> => {
 
   // Read Spotify token URL from environment variable, fallback to default
   const SPOTIFY_TOKEN_URL: string | undefined = process.env.SPOTIFY_TOKEN_URL;
-  if (!SPOTIFY_TOKEN_URL) {
+  if (!SPOTIFY_TOKEN_URL || SPOTIFY_TOKEN_URL.trim() === "") {
     return NextResponse.json(
-      { error: "Spotify token URL not set in environment variables." },
+      { error: "Spotify token URL not set or is empty in environment variables." },
       { status: 500 }
     );
   }
