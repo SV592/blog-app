@@ -146,11 +146,6 @@ Together, these defenses form a robust, repeatable security architecture that ma
 - [OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)  
   A security-focused guide exploring the most common risks facing LLM-based systems, including prompt injection and data leakage.
 
-- [Anthropic: Constitutional AI](https://www.anthropic.com/news/constitutional-ai-harmlessness-training)  
-  A description of Anthropic’s approach to aligning AI behavior using predefined constitutional principles and refusal training.
-
-- [OpenAI API Documentation: System Messages and Initialization Prompts](https://platform.openai.com/docs/guides/text-generation/system-messages)  
-  Official documentation outlining how to use system and developer messages to enforce consistent behavior and safety contexts.
 
 - [Indirect Prompt Injection Attacks Against Retrieval-Augmented Generation](https://arxiv.org/abs/2307.15043)  
   An academic paper examining indirect injection attacks through retrieved text and data contamination in RAG pipelines.
@@ -160,9 +155,6 @@ Together, these defenses form a robust, repeatable security architecture that ma
 
 - [Rebuff](https://github.com/protectai/rebuff)  
   An open-source library for detecting and defending against prompt injection and jailbreak attempts in LLM applications.
-
-- [Llama Guard: Meta AI’s Safety Classifier](https://ai.meta.com/blog/llama-guard-responsible-use/)  
-  Meta’s open-source safety classifier designed for evaluating and moderating LLM outputs in real time.
 
 - [PromptLayer](https://promptlayer.com/)  
   A monitoring and management platform for tracking prompt versions, performance, and response safety across production deployments.
