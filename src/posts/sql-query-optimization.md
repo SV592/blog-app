@@ -27,7 +27,7 @@ Examples:
 
 **SARGable (Efficient)**
 
-```
+```sql
 -- The index on `order_date` can be used directly.
 SELECT *
 FROM orders
@@ -42,7 +42,7 @@ WHERE customer_name LIKE 'Smith%';
 
 **Non-SARGable (Inefficient)**
 
-```
+```sql
 -- `YEAR()` function on an indexed column forces a full scan.
 SELECT *
 FROM orders
@@ -67,7 +67,7 @@ Writing SARGable queries is just one part of the optimization puzzle. Other tech
 
 **`JOIN` (Generally More Efficient)**
 
-```
+```sql
 SELECT c.customer_name, o.order_id
 FROM customers c
 JOIN orders o ON c.customer_id = o.customer_id
@@ -77,7 +77,7 @@ WHERE o.order_date > '2024-01-01';
 
 **Subquery (Potentially Inefficient)**
 
-```
+```sql
 SELECT customer_name
 FROM customers
 WHERE customer_id IN (

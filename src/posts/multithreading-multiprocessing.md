@@ -107,7 +107,7 @@ In this Python example, the `threading.Lock()` object acts as a key to a resourc
 
 #### Java Example:
 
-```Java
+```java
 public class ThreadSafeCounter {
     private int count = 0;
     private final Object lock = new Object(); // Object to synchronize on
@@ -150,7 +150,7 @@ In Java, the `synchronized` keyword provides a powerful way to implement thread 
 
 #### C++ Example:
 
-```C++
+```cpp
 #include <iostream>
 #include <thread>
 #include <mutex> // For std::mutex

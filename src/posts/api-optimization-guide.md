@@ -15,7 +15,7 @@ Caching stores the result of an API call. Subsequent requests for the same data 
 
 The first time a user requests `/products`, the API fetches from the database and stores the result in Redis. The next request for the same endpoint will fetch the cached data directly from Redis, skipping the database query.
 
-```
+```javascript
 const express = require('express');
 const redis = require('redis');
 const app = express();
@@ -46,7 +46,7 @@ Connection pooling maintains a set of open connections to a backend service. Reu
 
 Instead of creating a new connection for every request, a connection pool maintains a set of ready-to-use connections.
 
-```
+```javascript
 const { Pool } = require('pg');
 
 const pool = new Pool({
@@ -75,7 +75,7 @@ The N+1 query problem occurs when a list of items is fetched, and then for each 
 
 **Example: Using `JOIN` to fetch posts and comments in one query**
 
-```
+```sql
 -- Bad approach (N+1 queries)
 SELECT * FROM posts;
 -- Then for each post_id
@@ -99,7 +99,7 @@ Pagination breaks a large dataset into smaller, manageable chunks. Returning a l
 
 **Example: Offset-based Pagination in a SQL query**
 
-```
+```sql
 SELECT *
 FROM products
 ORDER BY id
@@ -113,7 +113,7 @@ Data compression reduces the size of the data transferred between the client and
 
 **Example: Enabling Gzip compression in a Node.js Express API**
 
-```
+```javascript
 const express = require('express');
 const compression = require('compression');
 const app = express();
@@ -137,7 +137,7 @@ Serialization converts an object into a format for transmission, like JSON. A li
 
 Instead of serializing the entire `user` object, including sensitive or unused fields, a custom serializer can return a lightweight, optimized version.
 
-```
+```javascript
 const user = {
   id: 123,
   username: 'johndoe',
@@ -167,7 +167,7 @@ Rate limiting controls the number of requests a client can make to your API in a
 
 **Example: Rate Limiting with `express-rate-limit` in Node.js**
 
-```
+```javascript
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const app = express();
@@ -193,7 +193,7 @@ Asynchronous operations enable your API to handle multiple tasks concurrently wi
 
 **Example: Asynchronous `async/await` in a Node.js API**
 
-```
+```javascript
 const express = require('express');
 const app = express();
 
@@ -233,7 +233,7 @@ With GraphQL, you can retrieve all the data in a single, efficient request.
 
 **GraphQL Query:**
 
-```
+```graphql
 query {
   user(id: "123") {
     name

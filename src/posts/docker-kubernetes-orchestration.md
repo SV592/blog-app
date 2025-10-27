@@ -76,7 +76,7 @@ With the Docker image available, Kubernetes takes over to deploy and manage the 
 
 `Kubernetes Deployment (YAML)`
 
-```
+```yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -112,7 +112,7 @@ spec:
 
 `Kubernetes Service (YAML)`
 
-```
+```yaml
 apiVersion: v1
 kind: Service
 metadata:
@@ -134,7 +134,7 @@ spec:
 
 `Kubernetes Horizontal Pod Autoscaler for traffic spikes (YAML)`
 
-```
+```yaml
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:

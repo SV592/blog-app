@@ -13,7 +13,7 @@ The `unknown` type provides a type-safe approach to handling values of indetermi
 
 **Scenario:** A function receives data from an external API. The data's structure isn't guaranteed. Using `unknown` ensures you validate the data before processing.
 
-```
+```typescript
 function processApiResponse(data: unknown) {
   if (typeof data === "object" && data !== null && "message" in data) {
     // TypeScript now knows 'data' has a 'message' property
@@ -37,7 +37,7 @@ Enums provide a clear, readable way to define named constant values. They enhanc
 
 **Scenario:** Represent the different states of an order in an order management system.
 
-```
+```typescript
 enum OrderStatus {
   Pending = 'PENDING',
   Processing = 'PROCESSING',
@@ -60,7 +60,7 @@ Interfaces define the shape and contract of an object. They excel at enforcing c
 
 **Scenario:** Define a contract for a `Product` object used throughout an e-commerce application.
 
-```
+```typescript
 interface Product {
   id: string;
   name: string;
@@ -92,7 +92,7 @@ The `type` keyword creates aliases for primitive types, unions, intersections, t
 
 **Scenario:** Define a complex configuration object that can have various forms.
 
-```
+```typescript
 type ThemeColor = 'light' | 'dark' | 'system';
 type UserPreferences = {
   theme: ThemeColor;
@@ -120,7 +120,7 @@ Type guards ensure variables hold the expected type before operations. This prev
 
 **Scenario:** A function processes user input, which might be a string or `null`. A type guard validates its presence.
 
-```
+```typescript
 function greetUser(username: string | null) {
   if (username) { // This acts as a type guard, narrowing 'username' to 'string'
     console.log(`Hello, ${username.toUpperCase()}!`);
@@ -140,7 +140,7 @@ The `Partial<T>` utility type constructs a type where all properties of `T` are 
 
 **Scenario:** An `updateUser` function receives only the fields that need modification.
 
-```
+```typescript
 interface UserProfile {
   id: string;
   firstName: string;
