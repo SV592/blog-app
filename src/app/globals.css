@@ -2,6 +2,9 @@
 @plugin "daisyui";
 @plugin "@tailwindcss/typography";
 
+/* Syntax highlighting base styles */
+@import "highlight.js/styles/github-dark.css";
+
 
 /* For the email input in the Newsletter component */
 input[type="email"]:-webkit-autofill,
@@ -57,22 +60,38 @@ input[type="email"]:-webkit-autofill:active {
 
 .prose pre {
   /* This ensures horizontal scrolling *if* content still overflows even after wrapping */
-  overflow-x: auto; 
+  overflow-x: auto;
 
   /* REQUIRED: Allows long lines to wrap within the code block */
-  white-space: pre-wrap; 
-  
+  white-space: pre-wrap;
+
   /* REQUIRED: Breaks very long, unbreakable words/strings so they don't force width */
-  word-break: break-all; 
-  
+  word-break: break-all;
+
   /* Recommended for broader compatibility with word-break */
-  word-wrap: break-word; 
+  word-wrap: break-word;
+
+  /* Let syntax highlighting handle the colors */
+  background: transparent !important;
+}
+
+.prose pre code {
+  /* Ensure syntax highlighting colors are visible */
+  background: transparent !important;
+}
+
+/* Override highlight.js background to match your blog theme */
+.prose .hljs {
+  background: #1A1A1A !important;
+  padding: 1.5em !important;
+  border-radius: 0.25rem;
+  border: 2px solid #2E2B2C;
 }
 
 
 html[data-theme="myLightTheme"] {
-  background-color: #EAEAEA; 
-  color: #2E2B2C; 
+  background-color: #EAEAEA;
+  color: #2E2B2C;
 
   .prose {
     /* Text color for body, paragraphs within prose */
@@ -80,23 +99,31 @@ html[data-theme="myLightTheme"] {
     /* Heading colors */
     --tw-prose-headings: #2E2B2C;
     /* Link colors */
-    --tw-prose-links: #007bff; /* Example: blue links in light mode */
+    --tw-prose-links: #007bff;
     /* Bold text color */
     --tw-prose-bold: #2E2B2C;
-    /* Code text color */
-    --tw-prose-code: #FFD230; /* Example: a distinct color for inline code */
-    /* Code block background */
-    --tw-prose-pre-bg: #1A1A1A; /* Light background for code blocks */
-    /* Code block text color */
-    --tw-prose-pre-code: #FFD230;
+    /* Inline code text color (not in blocks) */
+    --tw-prose-code: #c7254e;
+    /* Code block background - let syntax highlighting handle it */
+    --tw-prose-pre-bg: transparent;
+    /* Code block text color - let syntax highlighting handle it */
+    --tw-prose-pre-code: inherit;
     /* Color of numbers and bullets */
     --tw-prose-counters: #2E2B2C;
     --tw-prose-bullets: #2E2B2C;
   }
+
+  /* Style inline code (not in blocks) with light background */
+  .prose code:not(.hljs) {
+    background-color: rgba(46, 43, 44, 0.1);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
+  }
 }
 
 html[data-theme="myDarkTheme"] {
-  background-color: #2E2B2C; 
+  background-color: #2E2B2C;
   color: #EAEAEA;
 
   .prose {
@@ -105,18 +132,26 @@ html[data-theme="myDarkTheme"] {
     /* Heading colors */
     --tw-prose-headings: #EAEAEA;
     /* Link colors */
-    --tw-prose-links: #007bff; /* Example: lighter blue links in dark mode */
+    --tw-prose-links: #58a6ff;
     /* Bold text color */
     --tw-prose-bold: #EAEAEA;
-    /* Code text color */
-    --tw-prose-code: #FFD230; /* Example: a distinct color for inline code */
-    /* Code block background */
-    --tw-prose-pre-bg: #1A1A1A; /* Dark background for code blocks */
-    /* Code block text color */
-    --tw-prose-pre-code: #FFD230;
+    /* Inline code text color (not in blocks) */
+    --tw-prose-code: #FFD230;
+    /* Code block background - let syntax highlighting handle it */
+    --tw-prose-pre-bg: transparent;
+    /* Code block text color - let syntax highlighting handle it */
+    --tw-prose-pre-code: inherit;
     /* Color of numbers and bullets */
     --tw-prose-counters: #EAEAEA;
     --tw-prose-bullets: #EAEAEA;
+  }
+
+  /* Style inline code (not in blocks) with dark background */
+  .prose code:not(.hljs) {
+    background-color: rgba(255, 210, 48, 0.15);
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    font-size: 0.9em;
   }
 
   .nav-links {
