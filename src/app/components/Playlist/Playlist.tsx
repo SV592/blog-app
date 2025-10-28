@@ -94,7 +94,7 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({
       {/* Playlist promotion section */}
       <div className="flex flex-col gap-4 w-full xl:w-[50%] items-center">
         <h1 className="text-8xl font-bold hidden xl:block">
-          Music I&apos;ve been listening to recently
+          Music I&apos;ve been listening to recently (Because why not)
         </h1>
         <div className="w-full mt-0 xl:mt-4">
           <a
