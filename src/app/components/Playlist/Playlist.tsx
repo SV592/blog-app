@@ -66,7 +66,7 @@ export const Playlist: React.FC<SpotifyPlayerProps> = ({
         <div className="w-full flex flex-col gap-4">
           <p className="hidden md:block">Spotify Playlist</p>
           <h1 className="text-xl font-bold hidden md:block">
-            For A Creative Trance
+            Updated Weekly
           </h1>
 
           {/* Conditional rendering for loading, error, or track list */}
