@@ -9,7 +9,10 @@ import { getSortedPostsData, PostData } from "./utils/postsUtils";
 // Home page component as an async arrow function
 const Home: React.FC = async (): Promise<JSX.Element> => {
   // Fetch initial playlist data from the server
-  const initalPlaylist = await fetchPlaylistDataFromServer();
+  // Skip during build time (when API routes aren't available)
+  const initalPlaylist = process.env.NEXT_PHASE === 'phase-production-build'
+    ? null
+    : await fetchPlaylistDataFromServer();
 
   const allPosts: PostData[] = getSortedPostsData();
 
