@@ -121,7 +121,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
     if (random) {
       // Fetch playlist info to get total track count
       const playlistEndpoint = new URL(
-        `playlists/${playlistId}`,
+        `/playlists/${playlistId}`,
         SPOTIFY_API_BASE_URL
       );
 
