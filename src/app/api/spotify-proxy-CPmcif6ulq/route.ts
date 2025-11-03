@@ -4,7 +4,7 @@ import { NextResponse, NextRequest } from "next/server";
 let cachedAccessToken: string | null = null;
 let tokenExpiryTime: number = 0; // Timestamp
 
-// Get the app access token
+// Get the app access token with retry logic
 const getAppAccessToken = async (): Promise<string | null> => {
   // Check for a valid, unexpired token in cache
   const TOKEN_REFRESH_BUFFER_MS = 5 * 60 * 1000; // Refresh 5 minutes before expiry
@@ -16,62 +16,86 @@ const getAppAccessToken = async (): Promise<string | null> => {
     return cachedAccessToken;
   }
 
-  // Token is expired or not present, fetch a new one
-  try {
-    // Call the spotify-app-token API route
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : "http://localhost:3000";
+  const MAX_RETRIES = 3;
+  const RETRY_DELAYS = [100, 300, 1000]; // Exponential backoff in ms
 
-    const tokenRoutePath: string | undefined =
-      process.env.SPOTIFY_APP_TOKEN_ROUTE;
-    if (!tokenRoutePath || tokenRoutePath.trim() === "") {
-      throw new Error(
-        "SPOTIFY_APP_TOKEN_ROUTE environment variable is not set or is empty."
+  for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+    try {
+      // Call the spotify-app-token API route
+      const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+        ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+        : "http://localhost:3000";
+
+      const tokenRoutePath: string | undefined =
+        process.env.SPOTIFY_APP_TOKEN_ROUTE;
+      if (!tokenRoutePath || tokenRoutePath.trim() === "") {
+        throw new Error(
+          "SPOTIFY_APP_TOKEN_ROUTE environment variable is not set or is empty."
+        );
+      }
+      const tokenRouteUrl = new URL(tokenRoutePath, baseUrl);
+
+      const response = await fetch(tokenRouteUrl.toString(), {
+        signal: AbortSignal.timeout(10000), // 10 second timeout
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({
+          message: "No error body from /api/spotify-app-token",
+        }));
+
+        console.error(
+          `Server (Proxy): Failed to get app access token (attempt ${attempt + 1}/${MAX_RETRIES}, status: ${response.status}):`,
+          errorData
+        );
+
+        // Retry on server errors (5xx) or rate limits (429)
+        if (
+          (response.status >= 500 || response.status === 429) &&
+          attempt < MAX_RETRIES - 1
+        ) {
+          await new Promise((resolve) =>
+            setTimeout(resolve, RETRY_DELAYS[attempt])
+          );
+          continue;
+        }
+
+        cachedAccessToken = null;
+        tokenExpiryTime = 0;
+        return null;
+      }
+
+      const data: { access_token: string; expires_in: number } =
+        await response.json();
+
+      cachedAccessToken = data.access_token;
+      tokenExpiryTime = Date.now() + data.expires_in * 1000;
+
+      console.log(
+        `Server (Proxy): Successfully fetched access token (attempt ${attempt + 1}). Expires in: ${data.expires_in}s`
       );
-    }
-    const tokenRouteUrl = new URL(tokenRoutePath, baseUrl);
-
-    const response = await fetch(tokenRouteUrl.toString());
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({
-        message: "No error body from /api/spotify-app-token",
-      }));
-
+      return cachedAccessToken;
+    } catch (error) {
       console.error(
-        "Server (Proxy): Failed to get app access token from /api/spotify-app-token (Status:",
-        response.status,
-        ") Error:",
-        errorData
+        `Server (Proxy): Error calling /api/spotify-app-token (attempt ${attempt + 1}/${MAX_RETRIES}):`,
+        error
       );
-      cachedAccessToken = null; // Invalidate cache on failure
+
+      // Retry on network errors or timeouts
+      if (attempt < MAX_RETRIES - 1) {
+        await new Promise((resolve) =>
+          setTimeout(resolve, RETRY_DELAYS[attempt])
+        );
+        continue;
+      }
+
+      cachedAccessToken = null;
       tokenExpiryTime = 0;
       return null;
     }
-
-    const data: { access_token: string; expires_in: number } =
-      await response.json();
-
-    cachedAccessToken = data.access_token;
-
-    // Calculate expiry time: current time + expiresIn (in seconds) * 1000 (to milliseconds)
-    tokenExpiryTime = Date.now() + data.expires_in * 1000;
-    console.log(
-      "Server (Proxy): Successfully fetched NEW access token via /api/spotify-app-token. Expires in:",
-      data.expires_in,
-      "seconds."
-    );
-    return cachedAccessToken;
-  } catch (error) {
-    console.error(
-      "Server (Proxy): Error calling internal /api/spotify-app-token:",
-      error
-    );
-    cachedAccessToken = null; // Invalidate cache on error
-    tokenExpiryTime = 0;
-    return null;
   }
+
+  return null;
 };
 
 /**
