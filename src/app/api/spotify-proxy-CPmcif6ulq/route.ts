@@ -154,7 +154,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
       // Fetch individual tracks at random positions
       const trackPromises = randomIndices.map(async (offset) => {
         const trackEndpoint = new URL(
-          `playlists/${playlistId}/tracks?offset=${offset}&limit=1`,
+          `/playlists/${playlistId}/tracks?offset=${offset}&limit=1`,
           SPOTIFY_API_BASE_URL
         );
 
@@ -182,7 +182,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
       });
     } else {
       
-      const endpoint = `playlists/${playlistId}/tracks?limit=${limit}`;
+      const endpoint = `/playlists/${playlistId}/tracks?limit=${limit}`;
       const endpointUrl = new URL(endpoint, SPOTIFY_API_BASE_URL);
 
       const spotifyResponse: Response = await fetch(endpointUrl.href, {
