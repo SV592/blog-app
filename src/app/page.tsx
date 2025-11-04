@@ -6,13 +6,13 @@ import { Newsletter } from "./components/Newsletter/Newsletter";
 import { fetchPlaylistDataFromServer } from "./utils/spotifyServerUtils";
 import { getSortedPostsData, PostData } from "./utils/postsUtils";
 
+// Force dynamic rendering to allow API route calls
+export const dynamic = 'force-dynamic';
+
 // Home page component as an async arrow function
 const Home: React.FC = async (): Promise<JSX.Element> => {
   // Fetch initial playlist data from the server
-  // Skip during build time (when API routes aren't available)
-  const initalPlaylist = process.env.NEXT_PHASE === 'phase-production-build'
-    ? null
-    : await fetchPlaylistDataFromServer();
+  const initalPlaylist = await fetchPlaylistDataFromServer();
 
   const allPosts: PostData[] = getSortedPostsData();
 
