@@ -98,7 +98,15 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   const limit = parseInt(limitParam);
   const random = url.searchParams.get("random") === "true";
 
+  console.log("[Spotify Proxy] Request received:", {
+    playlistId,
+    limit,
+    random,
+    url: request.url,
+  });
+
   if (!playlistId) {
+    console.error("[Spotify Proxy] Missing playlistId parameter");
     return NextResponse.json(
       { error: "Missing playlistId parameter." },
       { status: 400 }
@@ -106,13 +114,16 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   }
 
   // Get access token internally
+  console.log("[Spotify Proxy] Fetching access token...");
   const accessToken = await getAppAccessToken();
   if (!accessToken) {
+    console.error("[Spotify Proxy] Failed to obtain access token");
     return NextResponse.json(
       { error: "Failed to obtain Spotify access token for proxy request." },
       { status: 500 }
     );
   }
+  console.log("[Spotify Proxy] Access token obtained successfully");
 
   try {
     const SPOTIFY_API_BASE_URL: string | undefined =

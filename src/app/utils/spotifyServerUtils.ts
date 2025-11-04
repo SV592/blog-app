@@ -53,6 +53,13 @@ export async function fetchPlaylistDataFromServer(
       ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : "http://localhost:3000";
 
+    console.log("[Spotify Debug] Environment:", {
+      hasVercelUrl: !!process.env.NEXT_PUBLIC_VERCEL_URL,
+      baseUrl,
+      proxyRoute,
+      playlistId: resolvedPlaylistId,
+    });
+
     if (!proxyRoute || proxyRoute.trim() === "") {
       console.error(
         "Server Utils: NEXT_PUBLIC_SPOTIFY_PROXY_ROUTE is not defined or is empty."
@@ -64,9 +71,9 @@ export async function fetchPlaylistDataFromServer(
     const proxyUrl = new URL(proxyRoute, baseUrl);
     proxyUrl.searchParams.set("playlistId", resolvedPlaylistId ?? "");
     proxyUrl.searchParams.set("limit", "5");
-    proxyUrl.searchParams.set("random", "true"); 
+    proxyUrl.searchParams.set("random", "true");
 
-    // console.log("Proxy URL:", proxyUrl.toString());
+    console.log("[Spotify Debug] Fetching from:", proxyUrl.toString());
 
     // Make the fetch request to the proxy API
     const response = await fetch(proxyUrl.toString(), {
