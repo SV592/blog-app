@@ -53,13 +53,6 @@ export async function fetchPlaylistDataFromServer(
       ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
       : "http://localhost:3000";
 
-    console.log("[Spotify Debug] Environment:", {
-      hasVercelUrl: !!process.env.NEXT_PUBLIC_VERCEL_URL,
-      baseUrl,
-      proxyRoute,
-      playlistId: resolvedPlaylistId,
-    });
-
     if (!proxyRoute || proxyRoute.trim() === "") {
       console.error(
         "Server Utils: NEXT_PUBLIC_SPOTIFY_PROXY_ROUTE is not defined or is empty."
@@ -73,12 +66,13 @@ export async function fetchPlaylistDataFromServer(
     proxyUrl.searchParams.set("limit", "5");
     proxyUrl.searchParams.set("random", "true");
 
-    console.log("[Spotify Debug] Fetching from:", proxyUrl.toString());
-
     // Make the fetch request to the proxy API
     const response = await fetch(proxyUrl.toString(), {
-      // Cache for 1 hour.
-      next: { revalidate: 3600 },
+      // Cache: 1 hour in production, no cache in development
+      ...(process.env.NODE_ENV === 'production'
+        ? { next: { revalidate: 3600 } }
+        : { cache: 'no-store' as RequestCache }
+      ),
     });
 
     if (!response.ok) {

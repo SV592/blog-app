@@ -98,15 +98,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   const limit = parseInt(limitParam);
   const random = url.searchParams.get("random") === "true";
 
-  console.log("[Spotify Proxy] Request received:", {
-    playlistId,
-    limit,
-    random,
-    url: request.url,
-  });
-
   if (!playlistId) {
-    console.error("[Spotify Proxy] Missing playlistId parameter");
     return NextResponse.json(
       { error: "Missing playlistId parameter." },
       { status: 400 }
@@ -114,16 +106,13 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
   }
 
   // Get access token internally
-  console.log("[Spotify Proxy] Fetching access token...");
   const accessToken = await getAppAccessToken();
   if (!accessToken) {
-    console.error("[Spotify Proxy] Failed to obtain access token");
     return NextResponse.json(
       { error: "Failed to obtain Spotify access token for proxy request." },
       { status: 500 }
     );
   }
-  console.log("[Spotify Proxy] Access token obtained successfully");
 
   try {
     const SPOTIFY_API_BASE_URL: string | undefined =
@@ -132,7 +121,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
     if (random) {
       // Fetch playlist info to get total track count
       const playlistEndpoint = new URL(
-        `/playlists/${playlistId}`,
+        `playlists/${playlistId}`,
         SPOTIFY_API_BASE_URL
       );
 
@@ -165,7 +154,7 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
       // Fetch individual tracks at random positions
       const trackPromises = randomIndices.map(async (offset) => {
         const trackEndpoint = new URL(
-          `/playlists/${playlistId}/tracks?offset=${offset}&limit=1`,
+          `playlists/${playlistId}/tracks?offset=${offset}&limit=1`,
           SPOTIFY_API_BASE_URL
         );
 
@@ -192,8 +181,8 @@ export const GET = async (request: NextRequest): Promise<NextResponse> => {
         total: totalTracks,
       });
     } else {
-      
-      const endpoint = `/playlists/${playlistId}/tracks?limit=${limit}`;
+
+      const endpoint = `playlists/${playlistId}/tracks?limit=${limit}`;
       const endpointUrl = new URL(endpoint, SPOTIFY_API_BASE_URL);
 
       const spotifyResponse: Response = await fetch(endpointUrl.href, {
