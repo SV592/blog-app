@@ -37,7 +37,7 @@ export const Featured: React.FC<FeaturedProps> = ({ post }) => {
             <p>{post.description}</p>
             
             {/* Tags for the featured post */}
-            <div className='flex justify-center lg:justify-normal gap-2 text-[0.8rem]'>
+            <div className='tag-list justify-center lg:justify-start'>
             {post.tags.map((tag: string, index: number) => (
               <p key={index} className='tags'>{tag}</p>
             ))}
