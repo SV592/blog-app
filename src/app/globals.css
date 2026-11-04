@@ -58,6 +58,14 @@ input[type="email"]:-webkit-autofill:active {
   @apply bg-[#2E2B2C] text-[#EAEAEA] px-2.5 py-1 rounded-full text-xs flex items-center
 }
 
+.page-btn {
+  @apply min-w-10 h-10 px-3 border-2 border-[#2E2B2C] rounded-sm font-bold bg-transparent text-[#2E2B2C] cursor-pointer transition-colors duration-300 ease-in-out hover:bg-[#2E2B2C] hover:text-[#EAEAEA] disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-[#2E2B2C]
+}
+
+.page-btn-active {
+  @apply bg-[#2E2B2C] text-[#EAEAEA]
+}
+
 .prose pre {
   /* This ensures horizontal scrolling *if* content still overflows even after wrapping */
   overflow-x: auto;
@@ -171,6 +179,14 @@ html[data-theme="myDarkTheme"] {
   }
 
   .tags {
+    @apply bg-[#EAEAEA] text-[#2E2B2C]
+  }
+
+  .page-btn {
+    @apply border-[#EAEAEA] text-[#EAEAEA] hover:bg-[#EAEAEA] hover:text-[#2E2B2C] disabled:hover:bg-transparent disabled:hover:text-[#EAEAEA]
+  }
+
+  .page-btn-active {
     @apply bg-[#EAEAEA] text-[#2E2B2C]
   }
 
